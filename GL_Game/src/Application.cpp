@@ -1,5 +1,5 @@
 #include <glad/glad.h>
-#include <GLFW\glfw3.h>
+#include <GLFW/glfw3.h>
 #include <iostream>
 
 #define WIN_SIZE_WIDTH 1024
@@ -17,6 +17,19 @@
 void framebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height); // Setting the viewport to a new size!
+}
+
+/// <summary>
+/// Function for handling events when the window received an input.
+///
+/// PARAMETERS:
+/// - window: Pointer to the window to be handled
+///
+/// </summary>
+void processInput(GLFWwindow *window)
+{
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
 }
 
 
@@ -61,8 +74,14 @@ int main() {
 
 	// MAIN LOOP
 	while (!glfwWindowShouldClose(window)) {
+        
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // Setting the desired color on the background
+        glClear(GL_COLOR_BUFFER_BIT); // Painting the with the clearColor parameters
+        
+        processInput(window); // Checking for interruptions
+        
 		glfwSwapBuffers(window); // Signalize the GPU to render another "frame" into the screen
-		glfwPollEvents(); // Signalize tha application that an event was dispatches like an interruption (i.e. input)
+		glfwPollEvents(); // Signalize tha application that an event was dispatched
 	}
 
 	glfwTerminate();
