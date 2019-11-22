@@ -13,40 +13,46 @@ int main() {
 
     GLFWwindow* window = Engine::Window::instantiate();
 
-    
-    unsigned int VBO; // Vertex Buffer Object (Holds m vertices which can form a triangle)
-	unsigned int VAO; // Vertex Array Object (Holds n VBOs, which can be n triangles)
-	unsigned int EBO; // Elements Buffer Object (Holds m vertices which can form a triangle OR quad...)
+//    int nrAttributes;
+//    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+//    std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
 
-	//float vertices[] = {
-	//	-0.5f, -0.5f, 0.0f, // Vertex 1
-	//	 0.5f, -0.5f, 0.0f, // Vertex 2
-	//	 0.0f,  0.5f, 0.0f  // Vertex 3
-	//};
+    unsigned int VBO[2];          // Vertex Buffer Object (Holds m vertices which can form a triangle)
+	unsigned int VAO[2];          // Vertex Array Object (Holds n VBOs, which can be n triangles)
 
 	float vertices[] = {
-	 0.5f,  0.5f, 0.0f,  // top right
-	 0.5f, -0.5f, 0.0f,  // bottom right
-	-0.5f, -0.5f, 0.0f,  // bottom left
-	-0.5f,  0.5f, 0.0f   // top left 
+	 -0.9f, -0.5f, 0.0f,  // left
+     -0.0f, -0.5f, 0.0f,  // right
+     -0.45f, 0.5f, 0.0f,  // top
 	};
+    
+    float vertices2[] = {
+     0.0f, -0.5f, 0.0f,  // left
+     0.9f, -0.5f, 0.0f,  // right
+     0.45f, 0.5f, 0.0f   // top
+    };
 
-	unsigned int indices[] = {  // The index always will start from ZERO
-		0, 1, 3,				// First triangle
-		1, 2, 3					// Second triangle
-	};
 
-	glGenVertexArrays(1, &VAO); // Creating "one" Vertex Array Object
-    glGenBuffers(1, &VBO);		// Creating "one" Vertex Buffer Object
-	glGenBuffers(1, &EBO);		// Creating "one" Elements Buffer Object
+	glGenVertexArrays(2, VAO);     // Creating "two" Vertex Array Object
+    glGenBuffers(2, VBO);		// Creating "two" Vertex Buffer Object
 
 	// WARNING! We must bind the VAO first before anything related to VBO
-	glBindVertexArray(VAO);													   // Signalizing to GPU that "VAO" must be used now
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);										   // Signalizing to GPU that "VBO" must be used now
+	glBindVertexArray(VAO[0]);													   // Signalizing to GPU that "VAO" must be used now
+	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);										   // Signalizing to GPU that "VBO" must be used now
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // Sending to the memory buffer the VBO's data
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    
+    // TELLING THE GPU HOW TO INTERPRET THE VERTEX SHADER ATTRIBUTES
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0); // Setting the first pointer read parameters
+    glEnableVertexAttribArray(0);                                                  // Saying which vertex attrib must be handled (which is ZERO)
+    
+    
+    glBindVertexArray(VAO[1]);                                                       // Signalizing to GPU that "VAO" must be used now
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);                                           // Signalizing to GPU that "VBO" must be used now
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices2), vertices2, GL_STATIC_DRAW); // Sending to the memory buffer the VBO's data
 
+    // TELLING THE GPU HOW TO INTERPRET THE VERTEX SHADER ATTRIBUTES
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0); // Setting the first pointer read parameters
+    glEnableVertexAttribArray(0);                                                  // Saying which vertex attrib must be handled (which is ZERO)
 
 	// VERTEX SHADER RELATED CODE
 	const char* vertexShaderCode =
@@ -86,11 +92,6 @@ int main() {
 		return -1;
 	}
 
-
-	// TELLING THE GPU HOW TO INTERPRET THE VERTEX SHADER ATTRIBUTES
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0); // Setting the first pointer read parameters
-	glEnableVertexAttribArray(0);												  // Saying which vertex attrib must be handled (which is ZERO)
-
 	// MAIN LOOP
 	while (!glfwWindowShouldClose(window)) {
         
@@ -103,11 +104,12 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);		  // Painting the with the clearColor parameters
 
 		glUseProgram(shaderProgram);
-		glBindVertexArray(VAO);
-		//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); // Optional?
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        
+		glBindVertexArray(VAO[0]);
+        glad_glDrawArrays(GL_TRIANGLES, 0, 3);
+        
+        glBindVertexArray(VAO[1]);
+        glad_glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		glfwSwapBuffers(window); // Signalize the GPU to render another "frame" into the screen
 		glfwPollEvents();		 // Signalize tha application that an event was dispatched
