@@ -24,10 +24,10 @@
     <ClCompile Include="src\GL\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GL\Window.cpp">
+    <ClCompile Include="src\GL\Render\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GL\Shaders\ShaderHandler.cpp">
+    <ClCompile Include="src\GL\Window\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,8 +38,15 @@
     <ClInclude Include="src\GL\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GL\Shaders\ShaderHandler.h">
+    <ClInclude Include="src\GL\Render\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\GL\Window\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\GL\Render\Shaders\Test_Fragment.frag" />
+    <None Include="src\GL\Render\Shaders\Test_Vertex.vert" />
   </ItemGroup>
 </Project>

@@ -1,11 +1,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include "GL/Window.h"
-#include "GL/Shaders/ShaderHandler.h"
+#include "GL/Window/Window.h"
+#include "GL/Render/Shader.h"
 #include "Events/InputEvent.h"
 #include <string>
 
+#define SHADER_PATH "C:\\Users\\vinny\\Documents\\GitHub\\GL_Game\\GL_Game\\src\\GL\\Render\\Shaders\\"
 
 int main() {
 
@@ -17,80 +18,37 @@ int main() {
 //    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
 //    std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
 
-    unsigned int VBO[2];          // Vertex Buffer Object (Holds m vertices which can form a triangle)
-	unsigned int VAO[2];          // Vertex Array Object (Holds n VBOs, which can be n triangles)
+    unsigned int VBO;          // Vertex Buffer Object (Holds m vertices which can form a triangle)
+	unsigned int VAO;          // Vertex Array Object (Holds n VBOs, which can be n triangles)
 
 	float vertices[] = {
-	 -0.9f, -0.5f, 0.0f,  // left
-     -0.0f, -0.5f, 0.0f,  // right
-     -0.45f, 0.5f, 0.0f,  // top
+	 -0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,  // left
+     0.0f, 0.5f, 0.0f,     0.0f, 1.0f, 0.0f,  // top
+     0.5f, -0.5f, 0.0f,    0.0f, 0.0f, 1.0f,  // right
 	};
     
-    float vertices2[] = {
-     0.0f, -0.5f, 0.0f,  // left
-     0.9f, -0.5f, 0.0f,  // right
-     0.45f, 0.5f, 0.0f   // top
-    };
 
-
-	glGenVertexArrays(2, VAO);     // Creating "two" Vertex Array Object
-    glGenBuffers(2, VBO);		// Creating "two" Vertex Buffer Object
+	glGenVertexArrays(1, &VAO);     // Creating "two" Vertex Array Object
+    glGenBuffers(1, &VBO);		// Creating "two" Vertex Buffer Object
 
 	// WARNING! We must bind the VAO first before anything related to VBO
-	glBindVertexArray(VAO[0]);													   // Signalizing to GPU that "VAO" must be used now
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);										   // Signalizing to GPU that "VBO" must be used now
+	glBindVertexArray(VAO);													   // Signalizing to GPU that "VAO" must be used now
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);										   // Signalizing to GPU that "VBO" must be used now
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // Sending to the memory buffer the VBO's data
     
     // TELLING THE GPU HOW TO INTERPRET THE VERTEX SHADER ATTRIBUTES
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0); // Setting the first pointer read parameters
-    glEnableVertexAttribArray(0);                                                  // Saying which vertex attrib must be handled (which is ZERO)
-    
-    
-    glBindVertexArray(VAO[1]);                                                       // Signalizing to GPU that "VAO" must be used now
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);                                           // Signalizing to GPU that "VBO" must be used now
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices2), vertices2, GL_STATIC_DRAW); // Sending to the memory buffer the VBO's data
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0); // Setting the first pointer to read parameters related to POSITION
+    glEnableVertexAttribArray(0);                                                 // Saying which vertex attrib must be handled (which is ZERO)
 
-    // TELLING THE GPU HOW TO INTERPRET THE VERTEX SHADER ATTRIBUTES
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0); // Setting the first pointer read parameters
-    glEnableVertexAttribArray(0);                                                  // Saying which vertex attrib must be handled (which is ZERO)
-
-	// VERTEX SHADER RELATED CODE
-	const char* vertexShaderCode =
-		"#version 330 core\n"
-		"layout (location = 0) in vec3 aPos;\n"
-		"\n"
-		"void main() {\n"
-		"gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-		"}";
-
-	// FRAGMENT SHADER RELATED CODE
-	const char* fragmentShaderCode =
-		"#version 330 core\n"
-		"out vec4 FragColor;\n"
-		"\n"
-		"void main() {\n"
-		"FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-		"}";
-
-
-
-	// Compiling shaders
-	unsigned int vertexShader = Engine::ShaderHandler::createShaderAndCompile(GL_VERTEX_SHADER, vertexShaderCode);
-	unsigned int fragmentShader = Engine::ShaderHandler::createShaderAndCompile(GL_FRAGMENT_SHADER, fragmentShaderCode);
-
-	if (vertexShader == 0 || fragmentShader == 0) {
-		std::cout << "Shaders were not compiled successfully!" << std::endl;
-		return -1;
-	}
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))); // Setting the first pointer to read parameters related to POSITION
+	glEnableVertexAttribArray(1);                                                 // Saying which vertex attrib must be handled (which is ZERO)
 
 
 	// Creating shader program
-	unsigned int shaderProgram = Engine::ShaderHandler::createShaderProgram(&vertexShader, &fragmentShader);
-
-	if (shaderProgram == 0) {
-		std::cout << "Shader program failed to be created!" << std::endl;
-		return -1;
-	}
+	char* shaderPath = (char*)SHADER_PATH;
+	Engine::Shader shader = Engine::Shader::Shader(
+		"C:\\Users\\vinny\\Documents\\GitHub\\GL_Game\\GL_Game\\src\\GL\\Render\\Shaders\\Test_Vertex.vert",
+		"C:\\Users\\vinny\\Documents\\GitHub\\GL_Game\\GL_Game\\src\\GL\\Render\\Shaders\\Test_Fragment.frag");
 
 	// MAIN LOOP
 	while (!glfwWindowShouldClose(window)) {
@@ -103,20 +61,16 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // Setting the desired color on the background
         glClear(GL_COLOR_BUFFER_BIT);		  // Painting the with the clearColor parameters
 
-		glUseProgram(shaderProgram);
-        
-		glBindVertexArray(VAO[0]);
+
+		glUseProgram(shader.id);
+
+		glBindVertexArray(VAO);
         glad_glDrawArrays(GL_TRIANGLES, 0, 3);
         
-        glBindVertexArray(VAO[1]);
-        glad_glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		glfwSwapBuffers(window); // Signalize the GPU to render another "frame" into the screen
 		glfwPollEvents();		 // Signalize tha application that an event was dispatched
 	}
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
 
 	glfwTerminate();
 
