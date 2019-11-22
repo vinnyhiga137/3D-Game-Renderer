@@ -2,52 +2,10 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "GL/Window.h"
+#include "GL/Shaders/ShaderHandler.h"
 #include "Events/InputEvent.h"
 #include <string>
 
-unsigned int createShaderAndCompile(unsigned int type, const char* sourceCode) {
-
-	unsigned int shader;
-	shader = glCreateShader(type);
-
-	glShaderSource(shader, 1, &sourceCode, NULL);
-	glCompileShader(shader);
-
-	int  success;
-	char infoLog[512];
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-
-	if (!success)
-	{
-		glGetShaderInfoLog(shader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-		return 0;
-	}
-
-	return shader;
-}
-
-unsigned int createShaderProgram(unsigned int* vertexShader, unsigned int* fragmentShader) {
-
-	unsigned int shaderProgram;
-	shaderProgram = glCreateProgram();
-
-	glAttachShader(shaderProgram, *vertexShader);
-	glAttachShader(shaderProgram, *fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	int  success;
-	char infoLog[512];
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-
-	if (!success) {
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::LINK_FAILED\n" << infoLog << std::endl;
-		return 0;
-	}
-
-	return shaderProgram;
-}
 
 int main() {
 
@@ -111,8 +69,8 @@ int main() {
 
 
 	// Compiling shaders
-	unsigned int vertexShader = createShaderAndCompile(GL_VERTEX_SHADER, vertexShaderCode);
-	unsigned int fragmentShader = createShaderAndCompile(GL_FRAGMENT_SHADER, fragmentShaderCode);
+	unsigned int vertexShader = Engine::ShaderHandler::createShaderAndCompile(GL_VERTEX_SHADER, vertexShaderCode);
+	unsigned int fragmentShader = Engine::ShaderHandler::createShaderAndCompile(GL_FRAGMENT_SHADER, fragmentShaderCode);
 
 	if (vertexShader == 0 || fragmentShader == 0) {
 		std::cout << "Shaders were not compiled successfully!" << std::endl;
@@ -121,7 +79,7 @@ int main() {
 
 
 	// Creating shader program
-	unsigned int shaderProgram = createShaderProgram(&vertexShader, &fragmentShader);
+	unsigned int shaderProgram = Engine::ShaderHandler::createShaderProgram(&vertexShader, &fragmentShader);
 
 	if (shaderProgram == 0) {
 		std::cout << "Shader program failed to be created!" << std::endl;

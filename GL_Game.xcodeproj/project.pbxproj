@@ -19,6 +19,7 @@
 		8184D7702386B532009674D5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8184D76F2386B532009674D5 /* Cocoa.framework */; };
 		818A42202386DDEB00964908 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 818A421E2386DDEB00964908 /* glad.c */; };
 		81C8ABED2386EDC00007E1F7 /* InputEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81C8ABEA2386E89A0007E1F7 /* InputEvent.cpp */; };
+		81EFA18D2387F7A4003E8FBA /* ShaderHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81EFA18B2387F1C7003E8FBA /* ShaderHandler.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,6 +51,8 @@
 		818A421E2386DDEB00964908 /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
 		81C8ABEA2386E89A0007E1F7 /* InputEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputEvent.cpp; sourceTree = "<group>"; };
 		81C8ABEC2386E8B10007E1F7 /* InputEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputEvent.h; sourceTree = "<group>"; };
+		81EFA18B2387F1C7003E8FBA /* ShaderHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderHandler.cpp; sourceTree = "<group>"; };
+		81EFA18C2387F1C7003E8FBA /* ShaderHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderHandler.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,7 @@
 		818A421B2386DDEB00964908 /* GL */ = {
 			isa = PBXGroup;
 			children = (
+				81EFA18A2387F1C7003E8FBA /* Shaders */,
 				813009232386DFBD00BD0D36 /* Window.cpp */,
 				813009242386DFBD00BD0D36 /* Window.h */,
 				818A421E2386DDEB00964908 /* glad.c */,
@@ -133,6 +137,15 @@
 			);
 			name = Events;
 			path = src/Events;
+			sourceTree = "<group>";
+		};
+		81EFA18A2387F1C7003E8FBA /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				81EFA18B2387F1C7003E8FBA /* ShaderHandler.cpp */,
+				81EFA18C2387F1C7003E8FBA /* ShaderHandler.h */,
+			);
+			path = Shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81EFA18D2387F7A4003E8FBA /* ShaderHandler.cpp in Sources */,
 				81C8ABED2386EDC00007E1F7 /* InputEvent.cpp in Sources */,
 				8184D75B2386B127009674D5 /* Application.cpp in Sources */,
 				813009252386DFBD00BD0D36 /* Window.cpp in Sources */,
@@ -314,6 +328,7 @@
 		8182511E2386AFCD00C504E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43793QF9P9;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -323,6 +338,7 @@
 					/Users/vinicius/Documents/GitHub/GL_Game/GL_Game/3rd_party/GLAD/include,
 				);
 				LIBRARY_SEARCH_PATHS = "/Users/vinicius/Documents/GitHub/GL_Game/GL_Game/3rd_party/GLFW/lib-macos";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -330,6 +346,7 @@
 		8182511F2386AFCD00C504E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43793QF9P9;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -339,6 +356,7 @@
 					/Users/vinicius/Documents/GitHub/GL_Game/GL_Game/3rd_party/GLAD/include,
 				);
 				LIBRARY_SEARCH_PATHS = "/Users/vinicius/Documents/GitHub/GL_Game/GL_Game/3rd_party/GLFW/lib-macos";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
