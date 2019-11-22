@@ -20,7 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\Events\InputEvent.cpp" />
+    <ClCompile Include="src\GL\glad.c" />
+    <ClCompile Include="src\GL\Shaders\ShaderHandler.cpp" />
+    <ClCompile Include="src\GL\Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Events\InputEvent.h" />
+    <ClInclude Include="src\GL\Shaders\ShaderHandler.h" />
+    <ClInclude Include="src\GL\Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
