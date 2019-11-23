@@ -24,6 +24,7 @@
     <ClCompile Include="src\GL\glad.c" />
     <ClCompile Include="src\GL\Render\Shader.cpp" />
     <ClCompile Include="src\GL\Window\Window.cpp" />
+    <ClCompile Include="src\Textures\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Events\InputEvent.h" />

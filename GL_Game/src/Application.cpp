@@ -14,10 +14,6 @@ int main() {
 
     GLFWwindow* window = Engine::Window::instantiate();
 
-//    int nrAttributes;
-//    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-//    std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
-
     unsigned int VBO;          // Vertex Buffer Object (Holds m vertices which can form a triangle)
 	unsigned int VAO;          // Vertex Array Object (Holds n VBOs, which can be n triangles)
 
@@ -26,10 +22,31 @@ int main() {
      0.0f, 0.5f, 0.0f,     0.0f, 1.0f, 0.0f,  // top
      0.5f, -0.5f, 0.0f,    0.0f, 0.0f, 1.0f,  // right
 	};
+
+	float texCoords[] = {
+	0.0f, 0.0f,  // lower-left corner  
+	1.0f, 0.0f,  // lower-right corner
+	0.5f, 1.0f   // top-center corner
+	};
     
 
+
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT); // Setting the S axis to be mirrored
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT); // Setting the R axis to be mirrored
+
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
+	float borderColor[] = { 1.0f, 1.0f, 0.0f, 1.0f };
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+
 	glGenVertexArrays(1, &VAO);     // Creating "two" Vertex Array Object
-    glGenBuffers(1, &VBO);		// Creating "two" Vertex Buffer Object
+    glGenBuffers(1, &VBO);			// Creating "two" Vertex Buffer Object
 
 	// WARNING! We must bind the VAO first before anything related to VBO
 	glBindVertexArray(VAO);													   // Signalizing to GPU that "VAO" must be used now
@@ -41,7 +58,9 @@ int main() {
     glEnableVertexAttribArray(0);                                                 // Saying which vertex attrib must be handled (which is ZERO)
 
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))); // Setting the first pointer to read parameters related to POSITION
-	glEnableVertexAttribArray(1);                                                 // Saying which vertex attrib must be handled (which is ZERO)
+	glEnableVertexAttribArray(1);																	// Saying which vertex attrib must be handled (which is ONE)
+
+
 
 
 	// Creating shader program
@@ -49,6 +68,8 @@ int main() {
 	Engine::Shader shader = Engine::Shader::Shader(
 		"C:\\Users\\vinny\\Documents\\GitHub\\GL_Game\\GL_Game\\src\\GL\\Render\\Shaders\\Test_Vertex.vert",
 		"C:\\Users\\vinny\\Documents\\GitHub\\GL_Game\\GL_Game\\src\\GL\\Render\\Shaders\\Test_Fragment.frag");
+
+
 
 	// MAIN LOOP
 	while (!glfwWindowShouldClose(window)) {
