@@ -1,6 +1,9 @@
 #include "Texture2D.h"
 
-Engine::Texture2D::Texture2D(const char* path) {
+Engine::Texture2D::Texture2D(const char* path, Shader* shader) {
+
+	this->shader = shader;
+
 
 	glGenTextures(1, &(this->data));
 	glBindTexture(GL_TEXTURE_2D, this->data);
@@ -35,8 +38,11 @@ Engine::Texture2D::Texture2D(const char* path) {
 
 
 
-Engine::Texture2D::Texture2D(const char* path, unsigned int type) {
+Engine::Texture2D::Texture2D(const char* path, unsigned int type, Shader* shader) {
 	
+	this->shader = shader;
+
+
 	glGenTextures(1, &(this->data));
 	glBindTexture(GL_TEXTURE_2D, this->data);
 
@@ -65,4 +71,8 @@ Engine::Texture2D::Texture2D(const char* path, unsigned int type) {
 
 	stbi_image_free(imageData); // Cleaning on the RAM side the texture's data, it's already on GPU's vRAM!
 
+}
+
+Engine::Texture2D::Texture2D() {
+	throw "Fatal! Constructor not implementd!";
 }

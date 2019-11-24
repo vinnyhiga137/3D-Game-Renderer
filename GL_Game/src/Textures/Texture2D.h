@@ -5,6 +5,7 @@
 #include <glad/glad.h>
 #include <STB/stb_image.h>
 #include <iostream>
+#include "../GL/Render/Shader.h"
 
 namespace Engine {
 
@@ -12,8 +13,10 @@ namespace Engine {
 	public:
 
 		unsigned int data;
+
 		int width, height;
 		int colorChannels;
+		Shader* shader;
 
 		/// <summary>
 		/// Basic constructor.
@@ -24,7 +27,7 @@ namespace Engine {
 		///			The file must be of type JPG, PNG, TGA, BMP, PSD, GIF, HDR, PIC.
 		///
 		/// </summary>
-		Texture2D(const char* path);
+		Texture2D(const char* path, Shader* shader);
 
 		/// <summary>
 		/// Constructor with channel type argument.
@@ -37,7 +40,12 @@ namespace Engine {
 		/// - type: The type of the channels supported by OpenGL 3.3 version.
 		///
 		/// </summary>
-		Texture2D(const char* path, unsigned int type);
+		Texture2D(const char* path, unsigned int type, Shader* shader);
+
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		Texture2D();
 
 		~Texture2D();
 	};

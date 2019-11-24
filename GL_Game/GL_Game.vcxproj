@@ -20,18 +20,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Entities\Entity.cpp" />
     <ClCompile Include="src\Events\InputEvent.cpp" />
     <ClCompile Include="src\GL\glad.c" />
+    <ClCompile Include="src\GL\MemoryManagement.cpp" />
     <ClCompile Include="src\GL\Render\Shader.cpp" />
     <ClCompile Include="src\GL\Window\Window.cpp" />
     <ClCompile Include="src\Textures\stb_image.cpp" />
     <ClCompile Include="src\Textures\Texture2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entities\Entity.h" />
     <ClInclude Include="src\Events\InputEvent.h" />
+    <ClInclude Include="src\GL\MemoryManagement.h" />
     <ClInclude Include="src\GL\Render\Shader.h" />
     <ClInclude Include="src\GL\Window\Window.h" />
     <ClInclude Include="src\GL\Window.h" />
+    <ClInclude Include="src\Math\Vector2D.h" />
     <ClInclude Include="src\Textures\Texture2D.h" />
   </ItemGroup>
   <ItemGroup>
@@ -90,11 +95,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)3rd_party\GLFW\include;$(ProjectDir)3rd_party\GLAD\include;$(ProjectDir)3rd_party\STB\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)3rd_party\GLFW\include;$(ProjectDir)3rd_party\GLAD\include;$(ProjectDir)3rd_party\STB\include;$(ProjectDir)3rd_party\glm\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)3rd_party\GLFW\lib-vc2019;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)3rd_party\GLFW\include;$(ProjectDir)3rd_party\GLAD\include;$(ProjectDir)3rd_party\STB\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)3rd_party\GLFW\include;$(ProjectDir)3rd_party\GLAD\include;$(ProjectDir)3rd_party\STB\include;$(ProjectDir)3rd_party\glm\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)3rd_party\GLFW\lib-vc2019;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
