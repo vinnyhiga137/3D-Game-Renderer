@@ -1,5 +1,5 @@
-# GL Game
-My simple game made with OpenGL 3
+# OpenGL Simple Renderer
+My simple OpenGL Renderer for games made with OpenGL 3
 
 # Project Status
 
@@ -16,11 +16,7 @@ Mac OS Catalina (x64):
 This project has the idea to try to build a simple OpenGL Game with following features:
 
 * Support common images formats (like JPEG and PNG with Alpha).
-* Render 2D Graphics with shaders.
-* Support 2D Animations.
-* 2D / 3D Map generation.
-* A.I. - Pathfinding and Decision Trees.
-* Multi-platform support (for now only Windows 10 and Mac OS Catalina).
+* Render 2D / 3D Graphics with shaders.
 
 # How to build
 
