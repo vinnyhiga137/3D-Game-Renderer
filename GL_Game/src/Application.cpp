@@ -43,7 +43,8 @@ int main() {
 
 	Engine::Entity* entity = new Engine::Entity(0.25, 0.25f, texture);
 
-	glUniform1i(glGetUniformLocation(shader.id, "uTexture"), 0); // set it manually
+	Engine::Entity* entity2 = new Engine::Entity(-0.25, -0.25f, texture);
+
 
 
 
@@ -62,6 +63,7 @@ int main() {
 
 
 		entity->draw();
+		entity2->draw();
 
 
 		glfwSwapBuffers(window); // Signalize the GPU to render another "frame" into the screen

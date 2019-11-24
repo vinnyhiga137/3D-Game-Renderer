@@ -35,6 +35,7 @@ void Engine::Entity::draw() {
 
 	glActiveTexture(GL_TEXTURE0); // Activate the texture unit first before binding texture
 	glBindTexture(GL_TEXTURE_2D, this->texture->data);
+	glUniform1i(glGetUniformLocation(this->texture->shader->id, "uTexture"), 0); // Setting the texture into the Uniform variable
 
 	this->texture->shader->enable();
 
