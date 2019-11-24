@@ -12,7 +12,7 @@ namespace Engine {
 	class Shader {
 	public:
 
-		unsigned int id;
+		unsigned int id = 0;
 
 		Shader(const char* vertexSourcePath, const char* fragmentSourcePath);
 
