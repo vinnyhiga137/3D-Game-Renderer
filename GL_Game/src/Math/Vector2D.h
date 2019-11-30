@@ -3,7 +3,7 @@
 namespace Engine {
 
 	struct Vector2 {
-		float x, y;
+		float x, y, z;
 		float length;
 	};
 

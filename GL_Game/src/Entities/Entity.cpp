@@ -1,11 +1,12 @@
-#include "Entity.h"
+﻿#include "Entity.h"
 #include <GLFW\glfw3.h>
 
-Engine::Entity::Entity(float x, float y, Texture2D* texture) {
+Engine::Entity::Entity(float x, float y, float z, Texture2D* texture) {
 
 	Vector2 position;
 	position.x = x;
 	position.y = y;
+	position.z = z;
 
 	this->position = position;
 
@@ -13,11 +14,48 @@ Engine::Entity::Entity(float x, float y, Texture2D* texture) {
 
 
 	float verticesData[] = {
-		// positions          // colors           // texture coords
-		0.25f,  0.25f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right (0)
-		0.25f, -0.25f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right (1)
-	   -0.25f, -0.25f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left (2)
-	   -0.25f,  0.25f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left (3)
+		 // 3D Position		  // 2D Texture Coords
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
 
 	unsigned int indexes[] = {
@@ -28,9 +66,20 @@ Engine::Entity::Entity(float x, float y, Texture2D* texture) {
 
 	Engine::MemoryManagement::generateGeometryData(verticesData, sizeof(verticesData), indexes, sizeof(indexes), &(this->VAO));
 
-
 }
 
+
+
+
+
+
+
+/// <summary>
+/// This methods draws the object into the screen.
+///
+/// This method must be called each frame / tick, because it will calculate the internal matrices
+/// to allow the texture / entity be rotated or moved.
+/// </summary>
 void Engine::Entity::draw() {
 
 	glActiveTexture(GL_TEXTURE0); // Activate the texture unit first before binding texture
@@ -39,15 +88,43 @@ void Engine::Entity::draw() {
 
 	this->texture->shader->enable();
 
-	glm::mat4 trans = glm::mat4(1.0f);
-	trans = glm::translate(trans, glm::vec3(this->position.x, this->position.y, 0.0f));
-	trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
-
-	unsigned int transformLoc = glGetUniformLocation(this->texture->shader->id, "transform");
-	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
 
+	////////////////////////////////////////////////////////////////////
+	// The next steps we need to the deal with the following equation //
+	//																  //
+	// Vclip=Mprojection⋅Mview⋅Mmodel⋅Vlocal							  //
+	////////////////////////////////////////////////////////////////////
+
+
+	// Multiplying the X axis to rotate by -55 degrees into the [1, 0, 0] vector
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+
+	// Translating the scene in the reverse direction of Z (we're dealing with a Z+ case)
+	glm::mat4 view = glm::mat4(1.0f);
+	view = glm::translate(view, glm::vec3(this->position.x, this->position.y, this->position.z));
+
+
+	// Creating the projection matrix a.k.a perspective view 
+	glm::mat4 projection;
+	projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 0.1f, 100.0f);
+
+	// Sending into the shader the updated matrices
+	int modelLoc = glGetUniformLocation(this->texture->shader->id, "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+	int viewLoc = glGetUniformLocation(this->texture->shader->id, "view");
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+	int projectionLoc = glGetUniformLocation(this->texture->shader->id, "projection");
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+
+
+	// Updating the VAO (Vertex Array Object) 
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
 
 }

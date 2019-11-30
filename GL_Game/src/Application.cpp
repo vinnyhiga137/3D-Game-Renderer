@@ -28,6 +28,8 @@ int main() {
 
 
 	// Creating shader program
+	glEnable(GL_DEPTH_TEST);
+
 	char* shaderPath = (char*)SHADER_PATH;
 	Engine::Shader shader = Engine::Shader::Shader(
 		"C:\\Users\\vinny\\Documents\\GitHub\\GL_Game\\GL_Game\\src\\GL\\Render\\Shaders\\Test_Vertex.vert",
@@ -41,9 +43,10 @@ int main() {
 
 	Engine::Texture2D* texture = new Engine::Texture2D("C:\\Users\\vinny\\Documents\\GitHub\\GL_Game\\GL_Game\\assets\\container.jpg", &shader);
 
-	Engine::Entity* entity = new Engine::Entity(0.25, 0.25f, texture);
-
-	Engine::Entity* entity2 = new Engine::Entity(-0.25, -0.25f, texture);
+	Engine::Entity* entity1 = new Engine::Entity(3.0, 0.25f, -10.0f, texture);
+	Engine::Entity* entity2 = new Engine::Entity(2.5, 0.25f, -8.0f, texture);
+	Engine::Entity* entity3 = new Engine::Entity(0.0, 0.0f, -4.0f, texture);
+	Engine::Entity* entity4 = new Engine::Entity(-3.0, -3.0f, -10.0f, texture);
 
 
 
@@ -59,11 +62,13 @@ int main() {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // Setting the desired color on the background
-        glClear(GL_COLOR_BUFFER_BIT);		  // Painting the with the clearColor parameters
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		  // Painting the with the clearColor parameters
 
 
-		entity->draw();
+		entity1->draw();
 		entity2->draw();
+		entity3->draw();
+		entity4->draw();
 
 
 		glfwSwapBuffers(window); // Signalize the GPU to render another "frame" into the screen
