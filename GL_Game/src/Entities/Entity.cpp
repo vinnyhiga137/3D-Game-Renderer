@@ -1,5 +1,5 @@
-﻿#include "Entity.h"
-#include <GLFW\glfw3.h>
+#include "Entity.h"
+#include <GLFW/glfw3.h>
 
 Engine::Entity::Entity(float x, float y, float z, Texture2D* texture) {
 

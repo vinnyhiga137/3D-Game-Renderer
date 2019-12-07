@@ -12,7 +12,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define SHADER_PATH "C:\\Users\\vinny\\Documents\\GitHub\\GL_Game\\GL_Game\\src\\GL\\Render\\Shaders\\"
+#ifdef MAC_OS
+    #define PROJECT_PATH "/Users/vinicius/Documents/GitHub/GL_Game/GL_Game"
+#else
+    #define PROJECT_PATH "C:\\Users\\vinny\\Documents\\GitHub\\OpenGL-Simple-Renderer\\GL_Game"
+#endif
 
 int main() {
 
@@ -26,14 +30,12 @@ int main() {
 	// Signalizing the image loader that we need to flip vertically the image before inserting into the shader program
 	stbi_set_flip_vertically_on_load(true);
 
-
+    
 	// Creating shader program
 	glEnable(GL_DEPTH_TEST);
 
-	char* shaderPath = (char*)SHADER_PATH;
-	Engine::Shader shader = Engine::Shader::Shader(
-		"C:\\Users\\vinny\\Documents\\GitHub\\OpenGL-Simple-Renderer\\GL_Game\\src\\GL\\Render\\Shaders\\Test_Vertex.vert",
-		"C:\\Users\\vinny\\Documents\\GitHub\\OpenGL-Simple-Renderer\\GL_Game\\src\\GL\\Render\\Shaders\\Test_Fragment.frag");
+	//char* shaderPath = (char*)SHADER_PATH;
+	Engine::Shader shader = Engine::Shader( "/Users/vinicius/Documents/GitHub/GL_Game/GL_Game/src/GL/Render/Shaders/Test_Vertex.vert", "/Users/vinicius/Documents/GitHub/GL_Game/GL_Game/src/GL/Render/Shaders/Test_Fragment.frag");
 
 
 
@@ -41,7 +43,7 @@ int main() {
 
 	/* ------- LOADING TEXTURES DATA --------- */
 
-	Engine::Texture2D* texture = new Engine::Texture2D("C:\\Users\\vinny\\Documents\\GitHub\\OpenGL-Simple-Renderer\\GL_Game\\assets\\container.jpg", &shader);
+	Engine::Texture2D* texture = new Engine::Texture2D("/Users/vinicius/Documents/GitHub/GL_Game/GL_Game/assets/container.jpg", &shader);
 
 	Engine::Entity* entity1 = new Engine::Entity(0.0, 0.0f, 0.0f, texture);
 
