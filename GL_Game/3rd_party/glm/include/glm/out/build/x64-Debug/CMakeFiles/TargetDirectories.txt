@@ -1,0 +1,3 @@
+C:/Users/vinny/Documents/GitHub/OpenGL-Simple-Renderer/GL_Game/3rd_party/glm/include/glm/out/build/x64-Debug/CMakeFiles/glm_dummy.dir
+C:/Users/vinny/Documents/GitHub/OpenGL-Simple-Renderer/GL_Game/3rd_party/glm/include/glm/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/vinny/Documents/GitHub/OpenGL-Simple-Renderer/GL_Game/3rd_party/glm/include/glm/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir

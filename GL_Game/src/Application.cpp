@@ -32,8 +32,8 @@ int main() {
 
 	char* shaderPath = (char*)SHADER_PATH;
 	Engine::Shader shader = Engine::Shader::Shader(
-		"C:\\Users\\vinny\\Documents\\GitHub\\GL_Game\\GL_Game\\src\\GL\\Render\\Shaders\\Test_Vertex.vert",
-		"C:\\Users\\vinny\\Documents\\GitHub\\GL_Game\\GL_Game\\src\\GL\\Render\\Shaders\\Test_Fragment.frag");
+		"C:\\Users\\vinny\\Documents\\GitHub\\OpenGL-Simple-Renderer\\GL_Game\\src\\GL\\Render\\Shaders\\Test_Vertex.vert",
+		"C:\\Users\\vinny\\Documents\\GitHub\\OpenGL-Simple-Renderer\\GL_Game\\src\\GL\\Render\\Shaders\\Test_Fragment.frag");
 
 
 
@@ -41,34 +41,44 @@ int main() {
 
 	/* ------- LOADING TEXTURES DATA --------- */
 
-	Engine::Texture2D* texture = new Engine::Texture2D("C:\\Users\\vinny\\Documents\\GitHub\\GL_Game\\GL_Game\\assets\\container.jpg", &shader);
+	Engine::Texture2D* texture = new Engine::Texture2D("C:\\Users\\vinny\\Documents\\GitHub\\OpenGL-Simple-Renderer\\GL_Game\\assets\\container.jpg", &shader);
 
-	Engine::Entity* entity1 = new Engine::Entity(3.0, 0.25f, -10.0f, texture);
-	Engine::Entity* entity2 = new Engine::Entity(2.5, 0.25f, -8.0f, texture);
-	Engine::Entity* entity3 = new Engine::Entity(0.0, 0.0f, -4.0f, texture);
-	Engine::Entity* entity4 = new Engine::Entity(-3.0, -3.0f, -10.0f, texture);
+	Engine::Entity* entity1 = new Engine::Entity(0.0, 0.0f, 0.0f, texture);
 
 
-
-
+	shader.enable();
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)1024.0f / (float)768.0f, 0.1f, 100.0f);
+	shader.setMat4Uniform("projection", projection);
 
 
 	/* --------- MAIN LOOP ------------ */
 	while (!glfwWindowShouldClose(window)) {
         
-		Engine::InputEvent::processInput(window);  // Checking for interruptions
+		Engine::InputEvent::processInput(window);				// Checking for interruptions
 
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f); // Setting the desired color on the background
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		  // Painting the with the clearColor parameters
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);					// Setting the desired color on the background
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Painting the with the clearColor parameters
 
+
+		float radius = 10.0f;
+		float camX = sin(glfwGetTime()) * radius;
+		float camZ = cos(glfwGetTime()) * radius;
+
+		glm::mat4 view = glm::mat4(1.0f);
+
+		view = glm::lookAt(
+			glm::vec3(camX, 0.0, camZ), // Where the camera is in S (space)
+			glm::vec3(0.0, 0.0, 0.0),	// Desired point look into the space S
+			glm::vec3(0.0, 1.0, 0.0));  // Up Vector
+
+		shader.setMat4Uniform("view", view);
 
 		entity1->draw();
-		entity2->draw();
-		entity3->draw();
-		entity4->draw();
+
+
 
 
 		glfwSwapBuffers(window); // Signalize the GPU to render another "frame" into the screen
