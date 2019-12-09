@@ -2,11 +2,14 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <string>
+#include "Tools/StringExtension.h"
 #include "GL/Window/Window.h"
-#include "Entities/Entity.h"
 #include "GL/Render/Shader.h"
+#include "Entities/Entity.h"
 #include "Events/InputEvent.h"
 #include "Textures/Texture2D.h"
+#include "Math/Vector2D.h"
+#include "Camera/Camera.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -17,6 +20,7 @@
 #else
     #define PROJECT_PATH "C:\\Users\\vinny\\Documents\\GitHub\\OpenGL-Simple-Renderer\\GL_Game"
 #endif
+
 
 int main() {
 
@@ -29,13 +33,14 @@ int main() {
 
 	// Signalizing the image loader that we need to flip vertically the image before inserting into the shader program
 	stbi_set_flip_vertically_on_load(true);
-
     
 	// Creating shader program
 	glEnable(GL_DEPTH_TEST);
 
-	//char* shaderPath = (char*)SHADER_PATH;
-	Engine::Shader shader = Engine::Shader( "/Users/vinicius/Documents/GitHub/GL_Game/GL_Game/src/GL/Render/Shaders/Test_Vertex.vert", "/Users/vinicius/Documents/GitHub/GL_Game/GL_Game/src/GL/Render/Shaders/Test_Fragment.frag");
+	char* vertexPath = StringExtension::join(PROJECT_PATH, "\\src\\GL\\Render\\Shaders\\Test_Vertex.vert");
+	char* fragPath = StringExtension::join(PROJECT_PATH, "\\src\\GL\\Render\\Shaders\\Test_Fragment.frag");
+
+	Engine::Shader shader = Engine::Shader(vertexPath, fragPath);
 
 
 
@@ -43,9 +48,15 @@ int main() {
 
 	/* ------- LOADING TEXTURES DATA --------- */
 
-	Engine::Texture2D* texture = new Engine::Texture2D("/Users/vinicius/Documents/GitHub/GL_Game/GL_Game/assets/container.jpg", &shader);
+	char* texturePath = StringExtension::join(PROJECT_PATH, "\\assets\\container.jpg");
+	Engine::Texture2D* texture = new Engine::Texture2D(texturePath, &shader);
 
-	Engine::Entity* entity1 = new Engine::Entity(0.0, 0.0f, 0.0f, texture);
+	Engine::Vector2 position;
+	position.x = 0.0f;
+	position.y = 0.0f;
+	position.z = 0.0f;
+
+	Engine::Entity* entity1 = new Engine::Entity(position, texture);
 
 
 	shader.enable();
@@ -53,10 +64,19 @@ int main() {
 	shader.setMat4Uniform("projection", projection);
 
 
+
+	float previousTimeValue = 0.0f;
+	float frameDeltaTime = 0.0f;
+
+	Engine::Camera* mainCamera = Engine::Camera::getInstance();
+
 	/* --------- MAIN LOOP ------------ */
 	while (!glfwWindowShouldClose(window)) {
         
-		Engine::InputEvent::processInput(window);				// Checking for interruptions
+		frameDeltaTime = glfwGetTime() - previousTimeValue;
+		previousTimeValue = glfwGetTime();
+
+		Engine::InputEvent::processInput(window, frameDeltaTime);				// Checking for interruptions
 
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -64,17 +84,12 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);					// Setting the desired color on the background
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Painting the with the clearColor parameters
 
+		glm::vec3* position = mainCamera->getPosition();
 
-		float radius = 10.0f;
-		float camX = sin(glfwGetTime()) * radius;
-		float camZ = cos(glfwGetTime()) * radius;
-
-		glm::mat4 view = glm::mat4(1.0f);
-
-		view = glm::lookAt(
-			glm::vec3(camX, 0.0, camZ), // Where the camera is in S (space)
-			glm::vec3(0.0, 0.0, 0.0),	// Desired point look into the space S
-			glm::vec3(0.0, 1.0, 0.0));  // Up Vector
+		glm::mat4 view = glm::lookAt(
+			*position,									// Where the camera is in S (space)
+			*position + mainCamera->getFrontVector(),	// Desired point look into the space S
+			mainCamera->getUpVector());					// Up Vector
 
 		shader.setMat4Uniform("view", view);
 

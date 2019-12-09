@@ -19,7 +19,7 @@ namespace Engine {
 		Texture2D* texture;
 		Vector2 position;
 	public:
-		Entity(float x, float y, float z, Texture2D* texture);
+		Entity(Vector2 position, Texture2D* texture);
 
 		void draw();
 	};

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Camera\Camera.cpp" />
     <ClCompile Include="src\Entities\Entity.cpp" />
     <ClCompile Include="src\Events\InputEvent.cpp" />
     <ClCompile Include="src\GL\glad.c" />
@@ -30,6 +31,7 @@
     <ClCompile Include="src\Textures\Texture2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\Entities\Entity.h" />
     <ClInclude Include="src\Events\InputEvent.h" />
     <ClInclude Include="src\GL\MemoryManagement.h" />
@@ -38,6 +40,7 @@
     <ClInclude Include="src\GL\Window.h" />
     <ClInclude Include="src\Math\Vector2D.h" />
     <ClInclude Include="src\Textures\Texture2D.h" />
+    <ClInclude Include="src\Tools\StringExtension.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\GL\Render\Shaders\Test_Fragment.frag" />

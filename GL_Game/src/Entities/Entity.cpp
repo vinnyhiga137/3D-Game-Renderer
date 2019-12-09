@@ -1,12 +1,7 @@
 #include "Entity.h"
 #include <GLFW/glfw3.h>
 
-Engine::Entity::Entity(float x, float y, float z, Texture2D* texture) {
-
-	Vector2 position;
-	position.x = x;
-	position.y = y;
-	position.z = z;
+Engine::Entity::Entity(Vector2 position, Texture2D* texture) {
 
 	this->position = position;
 
@@ -67,7 +62,6 @@ Engine::Entity::Entity(float x, float y, float z, Texture2D* texture) {
 	Engine::MemoryManagement::generateGeometryData(verticesData, sizeof(verticesData), indexes, sizeof(indexes), &(this->VAO));
 
 }
-
 
 
 
