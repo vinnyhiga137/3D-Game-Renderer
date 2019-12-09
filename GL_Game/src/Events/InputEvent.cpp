@@ -23,29 +23,31 @@ void Engine::InputEvent::processInput(GLFWwindow* window, float deltaTime) {
 
 void Engine::InputEvent::moveCamera(GLFWwindow* window, float deltaTime) {
 
-    float cameraSpeed = 3.0f * deltaTime;
+    float camSpeed = 3.0f * deltaTime;
 
     Engine::Camera* camera = Engine::Camera::getInstance();
-    glm::vec3* cameraPosition = camera->getPosition();
+    glm::vec3 camPosition = camera->getPosition();
 
     // Moving Forward...
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        *cameraPosition += cameraSpeed * camera->getFrontVector();
+        camPosition += camSpeed * camera->getFrontVector();
     }
 
     // Moving Backward...
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        *cameraPosition -= cameraSpeed * camera->getFrontVector();
+        camPosition -= camSpeed * camera->getFrontVector();
     }
 
     // Moving to Right...
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        *cameraPosition -= cameraSpeed * glm::normalize(glm::cross(camera->getUpVector(), camera->getFrontVector()));
+        camPosition -= camSpeed * glm::normalize(glm::cross(camera->getUpVector(), camera->getFrontVector()));
     }
 
     // Moving to Left...
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        *cameraPosition += cameraSpeed * glm::normalize(glm::cross(camera->getUpVector(), camera->getFrontVector()));
+        camPosition += camSpeed * glm::normalize(glm::cross(camera->getUpVector(), camera->getFrontVector()));
     }
+    
+    camera->setPosition(camPosition);
 
 }

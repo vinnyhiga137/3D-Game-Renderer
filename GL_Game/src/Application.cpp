@@ -8,7 +8,6 @@
 #include "Entities/Entity.h"
 #include "Events/InputEvent.h"
 #include "Textures/Texture2D.h"
-#include "Math/Vector2D.h"
 #include "Camera/Camera.h"
 
 #include <glm/glm.hpp>
@@ -51,7 +50,7 @@ int main() {
 	char* texturePath = StringExtension::join(PROJECT_PATH, "/assets/container.jpg");
 	Engine::Texture2D* texture = new Engine::Texture2D(texturePath, &shader);
 
-	Engine::Vector2 position;
+	glm::vec3 position;
 	position.x = 0.0f;
 	position.y = 0.0f;
 	position.z = 0.0f;
@@ -88,11 +87,11 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);					    // Setting the desired color on the background
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		    // Painting the with the clearColor parameters
 
-		glm::vec3* position = mainCamera->getPosition();
+		glm::vec3 position = mainCamera->getPosition();
 
 		glm::mat4 view = glm::lookAt(
-			*position,									// Where the camera is in S (space)
-			*position + mainCamera->getFrontVector(),	// Desired point look into the space S
+			position,									// Where the camera is in S (space)
+			position + mainCamera->getFrontVector(),	// Desired point look into the space S
 			mainCamera->getUpVector());					// Up Vector
 
 		shader.setMat4Uniform("view", view);

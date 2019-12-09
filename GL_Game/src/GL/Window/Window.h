@@ -10,6 +10,8 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "Camera.h"
+#include <glm/vec2.hpp>
 #include <iostream>
 
 namespace Engine {
@@ -17,6 +19,10 @@ namespace Engine {
     class Window {
         
     public:
+        
+        static glm::vec2 mousePosition;
+        static bool isMouseFirstTime;
+        
         Window();
         ~Window();
 
@@ -32,6 +38,8 @@ namespace Engine {
         ///
         /// </summary>
         static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
+        
+        static void mouseCallback(GLFWwindow* window, double posX, double posY);
     };
 
 }

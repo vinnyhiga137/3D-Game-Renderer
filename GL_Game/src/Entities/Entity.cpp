@@ -1,7 +1,7 @@
 #include "Entity.h"
 #include <GLFW/glfw3.h>
 
-Engine::Entity::Entity(Vector2 position, Texture2D* texture) {
+Engine::Entity::Entity(glm::vec3 position, Texture2D* texture) {
 
 	this->position = position;
 

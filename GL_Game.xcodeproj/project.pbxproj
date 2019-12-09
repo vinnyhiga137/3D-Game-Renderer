@@ -56,7 +56,6 @@
 		815C0C3D239BE1EE00EABAD7 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		815C0C3E239BE1EE00EABAD7 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 		815C0C3F239BE1EE00EABAD7 /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
-		815C0C41239BE1EE00EABAD7 /* Vector2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector2D.h; sourceTree = "<group>"; };
 		818251162386AFCD00C504E5 /* GL_Game */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GL_Game; sourceTree = BUILT_PRODUCTS_DIR; };
 		8184D7592386B127009674D5 /* Application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Application.cpp; path = src/Application.cpp; sourceTree = "<group>"; };
 		8184D75D2386B22B009674D5 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -164,15 +163,6 @@
 			path = Window;
 			sourceTree = "<group>";
 		};
-		815C0C40239BE1EE00EABAD7 /* Math */ = {
-			isa = PBXGroup;
-			children = (
-				815C0C41239BE1EE00EABAD7 /* Vector2D.h */,
-			);
-			name = Math;
-			path = src/Math;
-			sourceTree = "<group>";
-		};
 		8182510D2386AFCD00C504E5 = {
 			isa = PBXGroup;
 			children = (
@@ -198,7 +188,6 @@
 				815C0C29239BE1EE00EABAD7 /* Entities */,
 				815C0C30239BE1EE00EABAD7 /* Events */,
 				815C0C33239BE1EE00EABAD7 /* GL */,
-				815C0C40239BE1EE00EABAD7 /* Math */,
 				815C0C2C239BE1EE00EABAD7 /* Textures */,
 				8184D7592386B127009674D5 /* Application.cpp */,
 			);
