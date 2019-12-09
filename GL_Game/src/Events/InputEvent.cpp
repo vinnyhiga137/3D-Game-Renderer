@@ -40,12 +40,12 @@ void Engine::InputEvent::moveCamera(GLFWwindow* window, float deltaTime) {
 
     // Moving to Right...
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        *cameraPosition += cameraSpeed * glm::vec3(1.0f, 0.0f, 0.0f);
+        *cameraPosition -= cameraSpeed * glm::normalize(glm::cross(camera->getUpVector(), camera->getFrontVector()));
     }
 
     // Moving to Left...
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        *cameraPosition += cameraSpeed * glm::vec3(-1.0f, 0.0f, 0.0f);
+        *cameraPosition += cameraSpeed * glm::normalize(glm::cross(camera->getUpVector(), camera->getFrontVector()));
     }
 
 }

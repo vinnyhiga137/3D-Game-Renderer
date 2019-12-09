@@ -24,6 +24,7 @@
 		8184D76C2386B4D7009674D5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8184D76B2386B4D7009674D5 /* CoreVideo.framework */; };
 		8184D76E2386B4E5009674D5 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8184D76D2386B4E5009674D5 /* IOKit.framework */; };
 		8184D7702386B532009674D5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8184D76F2386B532009674D5 /* Cocoa.framework */; };
+		81F76DE0239E71290019B501 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81F76DDC239E71290019B501 /* Camera.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +68,9 @@
 		8184D76B2386B4D7009674D5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		8184D76D2386B4E5009674D5 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		8184D76F2386B532009674D5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		81F76DDC239E71290019B501 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		81F76DDD239E71290019B501 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		81F76DDF239E71290019B501 /* StringExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringExtension.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +193,8 @@
 		818251182386AFCD00C504E5 /* GL_Game */ = {
 			isa = PBXGroup;
 			children = (
+				81F76DDB239E71290019B501 /* Camera */,
+				81F76DDE239E71290019B501 /* Tools */,
 				815C0C29239BE1EE00EABAD7 /* Entities */,
 				815C0C30239BE1EE00EABAD7 /* Events */,
 				815C0C33239BE1EE00EABAD7 /* GL */,
@@ -213,6 +219,25 @@
 				8184D75D2386B22B009674D5 /* OpenGL.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		81F76DDB239E71290019B501 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				81F76DDC239E71290019B501 /* Camera.cpp */,
+				81F76DDD239E71290019B501 /* Camera.h */,
+			);
+			name = Camera;
+			path = src/Camera;
+			sourceTree = "<group>";
+		};
+		81F76DDE239E71290019B501 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				81F76DDF239E71290019B501 /* StringExtension.h */,
+			);
+			name = Tools;
+			path = src/Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +299,7 @@
 			files = (
 				815C0C43239BE1EE00EABAD7 /* stb_image.cpp in Sources */,
 				815C0C46239BE1EE00EABAD7 /* MemoryManagement.cpp in Sources */,
+				81F76DE0239E71290019B501 /* Camera.cpp in Sources */,
 				815C0C44239BE1EE00EABAD7 /* Texture2D.cpp in Sources */,
 				815C0C48239BE1EE00EABAD7 /* Window.cpp in Sources */,
 				815C0C45239BE1EE00EABAD7 /* InputEvent.cpp in Sources */,

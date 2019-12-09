@@ -10,6 +10,7 @@
 
 #include <GLFW/glfw3.h>
 #include <glm/vec3.hpp>
+#include <glm/geometric.hpp>
 
 #include "../Camera/Camera.h"
 

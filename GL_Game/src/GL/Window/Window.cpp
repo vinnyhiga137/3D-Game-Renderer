@@ -14,6 +14,7 @@ GLFWwindow* Engine::Window::instantiate() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); // If the version of the user's GPU are below of the GL requirements... We must handle
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, 0);
+    glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 
 #ifdef MAC_OS
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Support to OpenGL on Mac OS due to the new API called Metal

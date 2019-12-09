@@ -37,8 +37,8 @@ int main() {
 	// Creating shader program
 	glEnable(GL_DEPTH_TEST);
 
-	char* vertexPath = StringExtension::join(PROJECT_PATH, "\\src\\GL\\Render\\Shaders\\Test_Vertex.vert");
-	char* fragPath = StringExtension::join(PROJECT_PATH, "\\src\\GL\\Render\\Shaders\\Test_Fragment.frag");
+	char* vertexPath = StringExtension::join(PROJECT_PATH, "/src/GL/Render/Shaders/Test_Vertex.vert");
+	char* fragPath = StringExtension::join(PROJECT_PATH, "/src/GL/Render/Shaders/Test_Fragment.frag");
 
 	Engine::Shader shader = Engine::Shader(vertexPath, fragPath);
 
@@ -48,7 +48,7 @@ int main() {
 
 	/* ------- LOADING TEXTURES DATA --------- */
 
-	char* texturePath = StringExtension::join(PROJECT_PATH, "\\assets\\container.jpg");
+	char* texturePath = StringExtension::join(PROJECT_PATH, "/assets/container.jpg");
 	Engine::Texture2D* texture = new Engine::Texture2D(texturePath, &shader);
 
 	Engine::Vector2 position;
@@ -64,25 +64,29 @@ int main() {
 	shader.setMat4Uniform("projection", projection);
 
 
-
+    
+    
+    
+    
+    /* --------- MAIN LOOP ------------ */
+    
 	float previousTimeValue = 0.0f;
 	float frameDeltaTime = 0.0f;
 
 	Engine::Camera* mainCamera = Engine::Camera::getInstance();
 
-	/* --------- MAIN LOOP ------------ */
 	while (!glfwWindowShouldClose(window)) {
         
 		frameDeltaTime = glfwGetTime() - previousTimeValue;
 		previousTimeValue = glfwGetTime();
 
-		Engine::InputEvent::processInput(window, frameDeltaTime);				// Checking for interruptions
+		Engine::InputEvent::processInput(window, frameDeltaTime);   // Checking for interruptions
 
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);					// Setting the desired color on the background
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Painting the with the clearColor parameters
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);					    // Setting the desired color on the background
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		    // Painting the with the clearColor parameters
 
 		glm::vec3* position = mainCamera->getPosition();
 
