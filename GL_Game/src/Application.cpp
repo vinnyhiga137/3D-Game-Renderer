@@ -17,7 +17,7 @@
 #ifdef MAC_OS
     #define PROJECT_PATH "/Users/vinicius/Documents/GitHub/GL_Game/GL_Game"
 #else
-    #define PROJECT_PATH "C:\\Users\\vinny\\Documents\\GitHub\\OpenGL-Simple-Renderer\\GL_Game"
+    #define PROJECT_PATH "C:/Users/vinny/Documents/GitHub/OpenGL-Simple-Renderer/GL_Game"
 #endif
 
 
@@ -58,14 +58,8 @@ int main() {
 	Engine::Entity* entity1 = new Engine::Entity(position, texture);
 
 
-	shader.enable();
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)1024.0f / (float)768.0f, 0.1f, 100.0f);
-	shader.setMat4Uniform("projection", projection);
 
 
-    
-    
-    
     
     /* --------- MAIN LOOP ------------ */
     
@@ -87,7 +81,14 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);					    // Setting the desired color on the background
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		    // Painting the with the clearColor parameters
 
+		shader.enable();
+		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)1024.0f / (float)768.0f, 0.1f, 100.0f);
+		shader.setMat4Uniform("projection", projection);
+
+
+
 		glm::vec3 position = mainCamera->getPosition();
+
 
 		glm::mat4 view = glm::lookAt(
 			position,									// Where the camera is in S (space)

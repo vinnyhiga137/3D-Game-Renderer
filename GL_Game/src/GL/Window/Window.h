@@ -10,7 +10,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Camera.h"
+#include "../../Camera/Camera.h"
 #include <glm/vec2.hpp>
 #include <iostream>
 
@@ -21,8 +21,7 @@ namespace Engine {
     public:
         
         static glm::vec2 mousePosition;
-        static bool isMouseFirstTime;
-        
+       
         Window();
         ~Window();
 

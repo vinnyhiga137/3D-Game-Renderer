@@ -79,7 +79,6 @@ void Engine::Entity::draw() {
 	glBindTexture(GL_TEXTURE_2D, this->texture->data);
 	glUniform1i(glGetUniformLocation(this->texture->shader->id, "uTexture"), 0); // Setting the texture into the Uniform variable
 
-	this->texture->shader->enable();
 
 	// Updating the VAO (Vertex Array Object) 
 	glBindVertexArray(this->VAO);
@@ -93,7 +92,6 @@ void Engine::Entity::draw() {
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(this->position.x, this->position.y, this->position.z));
-	//model = glm::rotate(model, glm::radians(50.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 	// Sending into the shader the updated model matrix
 	this->texture->shader->setMat4Uniform("model", model);

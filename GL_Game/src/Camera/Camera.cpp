@@ -4,13 +4,12 @@
 Engine::Camera* Engine::Camera::main = nullptr;
 
 
-// TODO: Tratar como Fatal Error os métodos abaixos caso o singleton não esteja inicializado!
 
 
 
 Engine::Camera::Camera() {
 	this->position = glm::vec3(0.0f, 0.0f, 5.0f);
-    this->rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+    this->rotation = glm::vec3(-90.0f, 0.0f, 0.0f);
     this->frontVector = glm::vec3(0.0, 0.0, -1.0f);
 }
 
@@ -55,6 +54,7 @@ glm::vec3 Engine::Camera::getRotation() {
 
 
 void Engine::Camera::setRotation(float x, float y, float z) {
+
     this->rotation = glm::vec3(x, y, z);
     
     glm::vec3 newFrontVector;
@@ -67,7 +67,7 @@ void Engine::Camera::setRotation(float x, float y, float z) {
     newFrontVector.x = cos(glm::radians(this->rotation.x)) * cos(glm::radians(this->rotation.y));
     newFrontVector.y = sin(glm::radians(this->rotation.y));
     newFrontVector.z = sin(glm::radians(this->rotation.x)) * cos(glm::radians(this->rotation.y));
-    
+
     newFrontVector = glm::normalize(newFrontVector);
     
     this->frontVector = newFrontVector;
@@ -78,6 +78,7 @@ void Engine::Camera::setRotation(float x, float y, float z) {
 
 
 void Engine::Camera::setRotation(glm::vec3 rotation) {
+
     this->rotation = rotation;
     
     glm::vec3 newFrontVector;
@@ -95,6 +96,7 @@ void Engine::Camera::setRotation(glm::vec3 rotation) {
     
     this->frontVector = newFrontVector;
 }
+
 
 
 
