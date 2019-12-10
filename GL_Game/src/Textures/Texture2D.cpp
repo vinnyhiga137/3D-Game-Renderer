@@ -71,6 +71,21 @@ Engine::Texture2D::Texture2D(const char* path, unsigned int type, Shader* shader
 
 }
 
+
+
+
+
+
+
 Engine::Texture2D::Texture2D() {
 	throw "Fatal! Constructor not implementd!";
+}
+
+
+
+
+
+
+unsigned int Engine::Texture2D::getData() {
+    return this->data;
 }

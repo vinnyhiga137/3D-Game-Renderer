@@ -67,16 +67,11 @@ Engine::Entity::Entity(glm::vec3 position, Texture2D* texture) {
 
 
 
-/// <summary>
-/// This methods draws the object into the screen.
-///
-/// This method must be called each frame / tick, because it will calculate the internal matrices
-/// to allow the texture / entity be rotated or moved.
-/// </summary>
+
 void Engine::Entity::draw() {
 
 	glActiveTexture(GL_TEXTURE0); // Activate the texture unit first before binding texture
-	glBindTexture(GL_TEXTURE_2D, this->texture->data);
+	glBindTexture(GL_TEXTURE_2D, this->texture->getData());
 	glUniform1i(glGetUniformLocation(this->texture->shader->id, "uTexture"), 0); // Setting the texture into the Uniform variable
 
 

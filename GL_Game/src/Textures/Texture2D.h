@@ -10,12 +10,14 @@
 namespace Engine {
 
 	class Texture2D {
+    private:
+        unsigned int data;
+
+        int width, height;
+        int colorChannels;
+        
 	public:
 
-		unsigned int data;
-
-		int width, height;
-		int colorChannels;
 		Shader* shader;
 
 		/// <summary>
@@ -46,8 +48,13 @@ namespace Engine {
 		/// Default constructor.
 		/// </summary>
 		Texture2D();
+        
+        /// <summary>
+        /// This methods gets the texture data.
+        ///
+        /// </summary>
+        unsigned int getData();
 
-		~Texture2D();
 	};
 
 }

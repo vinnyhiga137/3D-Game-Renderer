@@ -79,8 +79,9 @@ int main() {
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);					    // Setting the desired color on the background
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		    // Painting the with the clearColor parameters
+        //glClearColor((float) 50.0f / 255.0f, (float) 84.0f / 255.0f, (float) 255.0f / 255.0f, 1.0f);	// Setting the desired color on the background
+        glClearColor(0.f, 0.f, 0.f, 1.0f);                                                              // DEBUG: Black background color
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		                                        // Painting the with the clearColor parameters
 
 		shader.enable();
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)Engine::Window::getWidth() / (float)Engine::Window::getHeight(), 0.1f, 100.0f);
