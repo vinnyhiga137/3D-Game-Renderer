@@ -27,8 +27,9 @@ int main() {
 
 	/* ------- PREPARING THE WINDOW, IT CONTEXT AND THE SHADER PROGRAM -------- */
 
-	// Instantiating with the Window factory a new GLFWwindow (regardless the O.S.)
-    GLFWwindow* window = Engine::Window::instantiate();
+	// Instantiating with the Window singleton a new GLFWwindow (regardless the O.S.)
+    Engine::Window::setSize(1920, 1080);
+    GLFWwindow* window = Engine::Window::getInstance();
 
 	// Signalizing the image loader that we need to flip vertically the image before inserting into the shader program
 	stbi_set_flip_vertically_on_load(true);
@@ -78,11 +79,11 @@ int main() {
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);					    // Setting the desired color on the background
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);					    // Setting the desired color on the background
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		    // Painting the with the clearColor parameters
 
 		shader.enable();
-		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)1024.0f / (float)768.0f, 0.1f, 100.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)Engine::Window::getWidth() / (float)Engine::Window::getHeight(), 0.1f, 100.0f);
 		shader.setMat4Uniform("projection", projection);
 
 

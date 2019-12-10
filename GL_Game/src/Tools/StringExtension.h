@@ -7,8 +7,8 @@ namespace StringExtension {
 
 	static char* join(const char* first, const char* second) {
 
-		int firstLen = strlen(first);
-		int secondLen = strlen(second);
+		int firstLen = (int) strlen(first);
+		int secondLen = (int) strlen(second);
 
 		char* data = (char*) malloc(sizeof(char) * (firstLen + secondLen));
 

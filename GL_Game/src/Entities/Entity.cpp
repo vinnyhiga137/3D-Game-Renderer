@@ -83,11 +83,11 @@ void Engine::Entity::draw() {
 	// Updating the VAO (Vertex Array Object) 
 	glBindVertexArray(this->VAO);
 
-	////////////////////////////////////////////////////////////////////
+    //----------------------------------------------------------------//
 	// The next steps we need to the deal with the following equation //
 	//																  //
 	// Vclip=Mprojection⋅Mview⋅Mmodel⋅Vlocal							  //
-	////////////////////////////////////////////////////////////////////
+    //----------------------------------------------------------------//
 
 
 	glm::mat4 model = glm::mat4(1.0f);

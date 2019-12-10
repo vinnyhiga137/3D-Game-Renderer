@@ -17,7 +17,6 @@ Engine::Texture2D::Texture2D(const char* path, Shader* shader) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
-	int width, height, nrChannels;
 	unsigned char* imageData = stbi_load(path, &(this->width), &(this->height), &(this->colorChannels), 0);
 
 
@@ -55,7 +54,6 @@ Engine::Texture2D::Texture2D(const char* path, unsigned int type, Shader* shader
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
-	int width, height, nrChannels;
 	unsigned char* imageData = stbi_load(path, &(this->width), &(this->height), &(this->colorChannels), 0);
 
 
