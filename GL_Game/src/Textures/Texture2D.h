@@ -20,6 +20,10 @@ namespace Engine {
 
 		Shader* shader;
 
+		// TODO: Tirar esse construtor depois, pois não faz sentido ter apenas o Shader na Textura em si
+		Texture2D(Shader* shader);
+
+
 		/// <summary>
 		/// Basic constructor.
 		/// This constructor returns into {data} the image buffer supporting channels of type RGB and without Alpha.
@@ -30,6 +34,7 @@ namespace Engine {
 		///
 		/// </summary>
 		Texture2D(const char* path, Shader* shader);
+
 
 		/// <summary>
 		/// Constructor with channel type argument.

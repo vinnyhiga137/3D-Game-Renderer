@@ -9,8 +9,14 @@ Engine::Camera* Engine::Camera::main = nullptr;
 
 Engine::Camera::Camera() {
 	this->position = glm::vec3(0.0f, 0.0f, 5.0f);
-    this->rotation = glm::vec3(-145.0f, 30.0f, 0.0f);
     this->frontVector = glm::vec3(0.0, 0.0, -1.0f);
+
+#ifdef MAC_OS
+    this->rotation = glm::vec3(-145.0f, 30.0f, 0.0f);
+#else 
+    this->rotation = glm::vec3(-90.0f, 0.0f, 0.0f);
+#endif
+
 }
 
 

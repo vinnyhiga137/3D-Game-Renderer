@@ -32,6 +32,8 @@ namespace Engine {
         /// </summary>
 		Entity(glm::vec3 position, Texture2D* texture);
 
+        glm::vec3 getPosition();
+
         /// <summary>
         /// This methods draws the object into the screen.
         ///

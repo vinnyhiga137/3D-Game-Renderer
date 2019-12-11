@@ -1,5 +1,16 @@
 #include "Texture2D.h"
 
+
+// TODO: Remover isso daqui depois que criar uma classe de Material
+Engine::Texture2D::Texture2D(Shader* shader) {
+	this->shader = shader;
+}
+
+
+
+
+
+
 Engine::Texture2D::Texture2D(const char* path, Shader* shader) {
 
 	this->shader = shader;
@@ -33,6 +44,7 @@ Engine::Texture2D::Texture2D(const char* path, Shader* shader) {
 	stbi_image_free(imageData); // Cleaning on the RAM side the texture's data, it's already on GPU's vRAM!
 
 }
+
 
 
 

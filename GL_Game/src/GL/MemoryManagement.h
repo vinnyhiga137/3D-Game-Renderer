@@ -24,8 +24,10 @@ namespace Engine {
         /// - VAO: The Vertex Array Object related to construction of a Geometry
         ///
         /// </summary>
-		static void generateGeometryData(float* verticesData, size_t vDataSize, unsigned int* indexes,
+		static void generateGeometryBuffer(float* verticesData, size_t vDataSize, unsigned int* indexes,
 			size_t indSize, unsigned int* VAO);
+
+        static void generateLightEmitterBuffer(float* verticesData, size_t vDataSize, unsigned int* VAO);
 
 	};
 

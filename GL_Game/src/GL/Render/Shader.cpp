@@ -118,3 +118,15 @@ void Engine::Shader::setFloatUniform(const std::string& name, float value) const
 void Engine::Shader::setMat4Uniform(const std::string& name, const glm::mat4& mat) const {
 	glUniformMatrix4fv(glGetUniformLocation(this->id, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
+
+void Engine::Shader::setVec3Uniform(const std::string& name, float x, float y, float z) const {
+	glUniform3f(glGetUniformLocation(this->id, name.c_str()), x, y, z);
+}
+
+void Engine::Shader::setVec3Uniform(const std::string& name, const glm::vec3& vec) const {
+	glUniform3fv(glGetUniformLocation(this->id, name.c_str()), 1, &vec[0]);
+}
+
+void Engine::Shader::setVec4Uniform(const std::string& name, const glm::vec4& vec) const {
+	glUniform4fv(glGetUniformLocation(this->id, name.c_str()), 1, &vec[0]);
+}

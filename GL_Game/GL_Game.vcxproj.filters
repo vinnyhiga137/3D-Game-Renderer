@@ -45,6 +45,9 @@
     <ClCompile Include="src\Camera\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entities\Debug\Lamp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Events\InputEvent.h">
@@ -77,9 +80,16 @@
     <ClInclude Include="src\Camera\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Entities\Debug\Lamp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\GL\Render\Shaders\Test_Fragment.frag" />
     <None Include="src\GL\Render\Shaders\Test_Vertex.vert" />
+    <None Include="src\GL\Render\Shaders\Lamp_Vertex.vert" />
+    <None Include="src\GL\Render\Shaders\Lamp_Fragment.frag" />
+    <None Include="src\GL\Render\Shaders\Debug_Fragment.frag" />
+    <None Include="src\GL\Render\Shaders\Debug_Vertex.vert" />
   </ItemGroup>
 </Project>
