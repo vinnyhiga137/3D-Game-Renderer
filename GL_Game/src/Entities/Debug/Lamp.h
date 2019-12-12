@@ -9,26 +9,30 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-namespace Engine::Debug {
+namespace Engine {
+    namespace Debug {
 
-	// WARNING! This a debug class! Do not use in production environment!
-	// There are workarounds on the following functions!
-	class Lamp {
+    // WARNING! This a debug class! Do not use in production environment!
+    // There are workarounds on the following functions!
+    class Lamp {
+        
+    private:
+        
+        // Attributes
+        unsigned int VAO;
+        Texture2D* texture;
+        glm::vec3 position;
+        
+    public:
+        
+        Lamp(glm::vec3 position, Texture2D* texture);
+        
+        void setPosition(glm::vec3 position);
+        glm::vec3 getPosition();
+        void draw();
+    };
 
-	private:
 
-		// Attributes
-		unsigned int VAO;
-		Texture2D* texture;
-		glm::vec3 position;
-
-	public:
-
-		Lamp(glm::vec3 position, Texture2D* texture);
-
-		void setPosition(glm::vec3 position);
-		glm::vec3 getPosition();
-		void draw();
-	};
+    }
 
 }

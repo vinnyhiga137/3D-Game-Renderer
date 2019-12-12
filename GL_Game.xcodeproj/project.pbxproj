@@ -24,6 +24,7 @@
 		8184D76C2386B4D7009674D5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8184D76B2386B4D7009674D5 /* CoreVideo.framework */; };
 		8184D76E2386B4E5009674D5 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8184D76D2386B4E5009674D5 /* IOKit.framework */; };
 		8184D7702386B532009674D5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8184D76F2386B532009674D5 /* Cocoa.framework */; };
+		81B7257323A2783800C1457D /* Lamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81B7257123A2783800C1457D /* Lamp.cpp */; };
 		81F76DE0239E71290019B501 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81F76DDC239E71290019B501 /* Camera.cpp */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,8 @@
 		8184D76B2386B4D7009674D5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		8184D76D2386B4E5009674D5 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		8184D76F2386B532009674D5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		81B7257123A2783800C1457D /* Lamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lamp.cpp; sourceTree = "<group>"; };
+		81B7257223A2783800C1457D /* Lamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lamp.h; sourceTree = "<group>"; };
 		81F76DDC239E71290019B501 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		81F76DDD239E71290019B501 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		81F76DDF239E71290019B501 /* StringExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringExtension.h; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 		815C0C29239BE1EE00EABAD7 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				81B7257023A2783800C1457D /* Debug */,
 				815C0C2A239BE1EE00EABAD7 /* Entity.cpp */,
 				815C0C2B239BE1EE00EABAD7 /* Entity.h */,
 			);
@@ -210,6 +214,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		81B7257023A2783800C1457D /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				81B7257123A2783800C1457D /* Lamp.cpp */,
+				81B7257223A2783800C1457D /* Lamp.h */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
 		81F76DDB239E71290019B501 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +302,7 @@
 				815C0C43239BE1EE00EABAD7 /* stb_image.cpp in Sources */,
 				815C0C46239BE1EE00EABAD7 /* MemoryManagement.cpp in Sources */,
 				81F76DE0239E71290019B501 /* Camera.cpp in Sources */,
+				81B7257323A2783800C1457D /* Lamp.cpp in Sources */,
 				815C0C44239BE1EE00EABAD7 /* Texture2D.cpp in Sources */,
 				815C0C48239BE1EE00EABAD7 /* Window.cpp in Sources */,
 				815C0C45239BE1EE00EABAD7 /* InputEvent.cpp in Sources */,

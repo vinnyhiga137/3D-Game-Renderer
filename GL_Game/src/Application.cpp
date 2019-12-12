@@ -29,7 +29,7 @@ int main() {
 	/* ------- PREPARING THE WINDOW (IT CONTEXT) -------- */
 
 	// Instantiating with the Window singleton a new GLFWwindow (regardless the O.S.)
-    Engine::Window::setSize(1024, 768);
+    Engine::Window::setSize(1280, 720);
     GLFWwindow* window = Engine::Window::getInstance();
 
 	// Signalizing the image loader that we need to flip vertically the image before inserting into the shader program
@@ -54,16 +54,14 @@ int main() {
 	Engine::Shader shader = Engine::Shader(vertexPath, fragPath);
 
 
-	char* texturePath = StringExtension::join(PROJECT_PATH, "/assets/container.jpg");
+	//char* texturePath = StringExtension::join(PROJECT_PATH, "/assets/container.jpg");
 	//Engine::Texture2D* texture = new Engine::Texture2D(texturePath, &shader);
 	Engine::Texture2D* texture = new Engine::Texture2D(&shader);
 
-	glm::vec3 position;
-	position.x = 0.0f;
-	position.y = 0.0f;
-	position.z = 0.0f;
-
-	Engine::Entity* entity1 = new Engine::Entity(position, texture);
+	Engine::Entity* entity1 = new Engine::Entity(glm::vec3(0.f, 0.f, 0.f), texture);
+    Engine::Entity* entity2 = new Engine::Entity(glm::vec3(1.f, 0.f, -1.f), texture);
+    Engine::Entity* entity3 = new Engine::Entity(glm::vec3(0.f, 0.f, -1.f), texture);
+    Engine::Entity* entity4 = new Engine::Entity(glm::vec3(0.f, 1.f, -1.f), texture);
 
 	shader.setFloatUniform("ambientLightStrength", 0.25f);
 
@@ -110,8 +108,8 @@ int main() {
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        //glClearColor((float) 50.0f / 255.0f, (float) 84.0f / 255.0f, (float) 255.0f / 255.0f, 1.0f);	// Setting the desired color on the background
-        glClearColor(0.f, 0.f, 0.f, 1.0f);                                                              // DEBUG: Black background color
+        glClearColor((float) 0.0f / 255.0f, (float) 0.0f / 255.0f, (float) 40.0f / 255.0f, 1.0f);	// Setting the desired color on the background
+        //glClearColor(0.f, 0.f, 0.f, 1.0f);                                                              // DEBUG: Black background color
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		                                        // Painting the with the clearColor parameters
 
 
@@ -134,6 +132,9 @@ int main() {
 
 		shader.setMat4Uniform("view", view);
 		entity1->draw();
+        entity2->draw();
+        entity3->draw();
+        entity4->draw();
 
 		shader.setVec3Uniform("objectColor", 1.0f, 0.5f, 0.31f);
 		shader.setVec3Uniform("lightColor", 1.0f, 1.0f, 1.0f);
@@ -145,6 +146,7 @@ int main() {
 		lampShader.enable();
 		lampShader.setMat4Uniform("projection", projection);
 		lampShader.setMat4Uniform("view", view);
+        lampShader.setVec3Uniform("viewPos", lamp->getPosition());
 		lamp->setPosition(glm::vec3(glm::sin(glfwGetTime()) * 3.f, 0.f, glm::cos(glfwGetTime()) * 3.f));
 		lamp->draw();
 
