@@ -1,11 +1,11 @@
 ﻿#include "Lamp.h"
 
 // Warning! Workaround here! DO NOT USE IN PRODUCTION ENV!
-Engine::Debug::Lamp::Lamp(glm::vec3 position, Texture2D* texture) {
+Engine::Debug::Lamp::Lamp(glm::vec3 position, Shader* shaderProgram) {
 
 	this->position = position;
 
-	this->texture = texture;
+	this->shaderProgram = shaderProgram;
 
 	float verticesData[] = {
         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -77,7 +77,7 @@ void Engine::Debug::Lamp::draw() {
 	model = glm::translate(model, glm::vec3(this->position.x, this->position.y, this->position.z));
 
 	// Sending into the shader the updated model matrix
-	this->texture->shader->setMat4Uniform("model", model);
+	this->shaderProgram->setMat4Uniform("model", model);
 
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);

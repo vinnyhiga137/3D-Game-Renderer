@@ -4,9 +4,9 @@
 #include <string>
 #include "Tools/StringExtension.h"
 #include "GL/Window/Window.h"
-#include "GL/Render/Shader.h"
 #include "Entities/Entity.h"
 #include "Entities/Debug/Lamp.h"
+#include "Materials/Material.h"
 #include "Events/InputEvent.h"
 #include "Textures/Texture2D.h"
 #include "Camera/Camera.h"
@@ -29,7 +29,7 @@ int main() {
 	/* ------- PREPARING THE WINDOW (IT CONTEXT) -------- */
 
 	// Instantiating with the Window singleton a new GLFWwindow (regardless the O.S.)
-    Engine::Window::setSize(1280, 720);
+    Engine::Window::setSize(1600, 900);
     GLFWwindow* window = Engine::Window::getInstance();
 
 	// Signalizing the image loader that we need to flip vertically the image before inserting into the shader program
@@ -46,24 +46,30 @@ int main() {
 	// Creating shader program
 	glEnable(GL_DEPTH_TEST);
 
-	//char* vertexPath = StringExtension::join(PROJECT_PATH, "/src/GL/Render/Shaders/Test_Vertex.vert");
-	//char* fragPath = StringExtension::join(PROJECT_PATH, "/src/GL/Render/Shaders/Test_Fragment.frag");
+	
 	char* vertexPath = StringExtension::join(PROJECT_PATH, "/src/GL/Render/Shaders/Debug_Vertex.vert");
 	char* fragPath = StringExtension::join(PROJECT_PATH, "/src/GL/Render/Shaders/Debug_Fragment.frag");
 
 	Engine::Shader shader = Engine::Shader(vertexPath, fragPath);
 
+	Engine::Color colorParams;
+	colorParams.ambientStrength = glm::vec3(1.0f, 0.5f, 0.31f);
+	colorParams.diffuseStrength = glm::vec3(1.0f, 0.5f, 0.31f);
+	colorParams.specularStrength = glm::vec3(0.5f, 0.5f, 0.5f);
+	colorParams.shininess = 32;
 
-	//char* texturePath = StringExtension::join(PROJECT_PATH, "/assets/container.jpg");
-	//Engine::Texture2D* texture = new Engine::Texture2D(texturePath, &shader);
-	Engine::Texture2D* texture = new Engine::Texture2D(&shader);
+	Engine::Light lightParams;
+	lightParams.ambientLightStrength = glm::vec3(0.2f, 0.2f, 0.2f);
+	lightParams.diffuseLightStrength = glm::vec3(0.5f, 0.5f, 0.5f);
+	lightParams.specularLightStrength = glm::vec3(1.0f, 1.0f, 1.0f);
+	lightParams.lightPosition = glm::vec3(0.f, 0.f, 0.f); // The Position is fixed due to the Light Emitter obj isn't instantiated yet!
 
-	Engine::Entity* entity1 = new Engine::Entity(glm::vec3(0.f, 0.f, 0.f), texture);
-    Engine::Entity* entity2 = new Engine::Entity(glm::vec3(1.f, 0.f, -1.f), texture);
-    Engine::Entity* entity3 = new Engine::Entity(glm::vec3(0.f, 0.f, -1.f), texture);
-    Engine::Entity* entity4 = new Engine::Entity(glm::vec3(0.f, 1.f, -1.f), texture);
+	Engine::Material* material = new Engine::Material(colorParams, lightParams, &shader);
 
-	shader.setFloatUniform("ambientLightStrength", 0.25f);
+	Engine::Entity* entity1 = new Engine::Entity(glm::vec3(0.f, 0.f, 0.f), material);
+    Engine::Entity* entity2 = new Engine::Entity(glm::vec3(1.f, 0.f, -1.f), material);
+    Engine::Entity* entity3 = new Engine::Entity(glm::vec3(0.f, 0.f, -1.f), material);
+    Engine::Entity* entity4 = new Engine::Entity(glm::vec3(0.f, 1.f, -1.f), material);
 
 
 
@@ -75,16 +81,7 @@ int main() {
 	char* lampFragPath = StringExtension::join(PROJECT_PATH, "/src/GL/Render/Shaders/Lamp_Fragment.frag");
 
 	Engine::Shader lampShader = Engine::Shader(lampVertexPath, lampFragPath);
-
-
-	Engine::Texture2D* lampTexture = new Engine::Texture2D(&lampShader); // This is a fake "texture", because will be used for debugging the "light"
-
-	glm::vec3 lampPosition;
-	lampPosition.x = 1.0f;
-	lampPosition.y = 0.0f;
-	lampPosition.z = -1.0f;
-
-	Engine::Debug::Lamp* lamp = new Engine::Debug::Lamp(lampPosition, lampTexture);
+	Engine::Debug::Lamp* lamp = new Engine::Debug::Lamp(glm::vec3(1.f, 0.f, -1.f), &lampShader);
 
 
 
@@ -106,10 +103,9 @@ int main() {
 		Engine::InputEvent::processInput(window, frameDeltaTime);   // Checking for interruptions
 
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glPolygonMode(GL_FRONT, GL_FILL);
 
-        glClearColor((float) 0.0f / 255.0f, (float) 0.0f / 255.0f, (float) 40.0f / 255.0f, 1.0f);	// Setting the desired color on the background
-        //glClearColor(0.f, 0.f, 0.f, 1.0f);                                                              // DEBUG: Black background color
+        glClearColor((float) 0.0f / 255.0f, (float) 0.0f / 255.0f, (float) 40.0f / 255.0f, 1.0f);	// Setting the desired color on the background                                                          // DEBUG: Black background color
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		                                        // Painting the with the clearColor parameters
 
 
@@ -131,14 +127,13 @@ int main() {
 			mainCamera->getUpVector());					
 
 		shader.setMat4Uniform("view", view);
+		material->updateLightData(lamp->getPosition());
+		shader.setVec3Uniform("viewPos", mainCamera->getPosition());
+
 		entity1->draw();
         entity2->draw();
         entity3->draw();
         entity4->draw();
-
-		shader.setVec3Uniform("objectColor", 1.0f, 0.5f, 0.31f);
-		shader.setVec3Uniform("lightColor", 1.0f, 1.0f, 1.0f);
-		shader.setVec3Uniform("lightPos", lamp->getPosition());
 
 
 
@@ -146,7 +141,6 @@ int main() {
 		lampShader.enable();
 		lampShader.setMat4Uniform("projection", projection);
 		lampShader.setMat4Uniform("view", view);
-        lampShader.setVec3Uniform("viewPos", lamp->getPosition());
 		lamp->setPosition(glm::vec3(glm::sin(glfwGetTime()) * 3.f, 0.f, glm::cos(glfwGetTime()) * 3.f));
 		lamp->draw();
 

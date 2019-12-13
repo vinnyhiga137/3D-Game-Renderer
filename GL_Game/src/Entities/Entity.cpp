@@ -1,11 +1,11 @@
 #include "Entity.h"
 #include <GLFW/glfw3.h>
 
-Engine::Entity::Entity(glm::vec3 position, Texture2D* texture) {
+Engine::Entity::Entity(glm::vec3 position, Material* material) {
 
 	this->position = position;
 
-	this->texture = texture;
+	this->material = material;
 
 
 	float verticesData[] = {
@@ -64,9 +64,9 @@ Engine::Entity::Entity(glm::vec3 position, Texture2D* texture) {
 
 void Engine::Entity::draw() {
 
-	glActiveTexture(GL_TEXTURE0); // Activate the texture unit first before binding texture
-	glBindTexture(GL_TEXTURE_2D, this->texture->getData());
-	glUniform1i(glGetUniformLocation(this->texture->shader->id, "uTexture"), 0); // Setting the texture into the Uniform variable
+	//glActiveTexture(GL_TEXTURE0); // Activate the texture unit first before binding texture
+	//glBindTexture(GL_TEXTURE_2D, this->material->getTextureData());
+	//glUniform1i(glGetUniformLocation(this->material->shaderProgram->id, "uTexture"), 0); // Setting the texture into the Uniform variable
 
 
 	// Updating the VAO (Vertex Array Object) 
@@ -83,7 +83,7 @@ void Engine::Entity::draw() {
 	model = glm::translate(model, glm::vec3(this->position.x, this->position.y, this->position.z));
 
 	// Sending into the shader the updated model matrix
-	this->texture->shader->setMat4Uniform("model", model);
+	this->material->shaderProgram->setMat4Uniform("model", model);
 
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);

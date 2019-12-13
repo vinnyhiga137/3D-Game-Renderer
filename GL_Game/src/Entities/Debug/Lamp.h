@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 
 #include "../../GL/MemoryManagement.h"
-#include "../../Textures/Texture2D.h"
+#include "../../GL/Render/Shader.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -20,12 +20,12 @@ namespace Engine {
         
         // Attributes
         unsigned int VAO;
-        Texture2D* texture;
+        Shader* shaderProgram;
         glm::vec3 position;
         
     public:
         
-        Lamp(glm::vec3 position, Texture2D* texture);
+        Lamp(glm::vec3 position, Shader* shaderProgram);
         
         void setPosition(glm::vec3 position);
         glm::vec3 getPosition();

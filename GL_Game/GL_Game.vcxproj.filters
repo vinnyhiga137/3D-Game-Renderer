@@ -48,6 +48,9 @@
     <ClCompile Include="src\Entities\Debug\Lamp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Materials\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Events\InputEvent.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Entities\Debug\Lamp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Materials\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

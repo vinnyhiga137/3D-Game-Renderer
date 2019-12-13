@@ -104,29 +104,85 @@ void Engine::Shader::enable() {
 }
 
 void Engine::Shader::setBoolUniform(const std::string& name, bool value) const {
-	glUniform1i(glGetUniformLocation(this->id, name.c_str()), (int) value);
+
+	GLint address = glGetUniformLocation(this->id, name.c_str());
+
+	if (address == -1) {
+		std::cout << "[SHADER] Fatal Error! Couldn't find the desired variable " << name << "!" << std::endl;
+		exit(0);
+	}
+
+	glUniform1i(address, (int) value);
 }
 
 void Engine::Shader::setIntUniform(const std::string& name, int value) const {
-	glUniform1i(glGetUniformLocation(this->id, name.c_str()), value);
+
+	GLint address = glGetUniformLocation(this->id, name.c_str());
+
+	if (address == -1) {
+		std::cout << "[SHADER] Fatal Error! Couldn't find the desired variable " << name << "!" << std::endl;
+		exit(0);
+	}
+
+	glUniform1i(address, value);
 }
 
 void Engine::Shader::setFloatUniform(const std::string& name, float value) const {
-	glUniform1f(glGetUniformLocation(this->id, name.c_str()), value);
+
+	GLint address = glGetUniformLocation(this->id, name.c_str());
+
+	if (address == -1) {
+		std::cout << "[SHADER] Fatal Error! Couldn't find the desired variable " << name << "!" << std::endl;
+		exit(0);
+	}
+
+	glUniform1f(address, value);
 }
 
 void Engine::Shader::setMat4Uniform(const std::string& name, const glm::mat4& mat) const {
-	glUniformMatrix4fv(glGetUniformLocation(this->id, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+
+	GLint address = glGetUniformLocation(this->id, name.c_str());
+
+	if (address == -1) {
+		std::cout << "[SHADER] Fatal Error! Couldn't find the desired variable " << name << "!" << std::endl;
+		exit(0);
+	}
+
+	glUniformMatrix4fv(address, 1, GL_FALSE, &mat[0][0]);
 }
 
 void Engine::Shader::setVec3Uniform(const std::string& name, float x, float y, float z) const {
-	glUniform3f(glGetUniformLocation(this->id, name.c_str()), x, y, z);
+
+	GLint address = glGetUniformLocation(this->id, name.c_str());
+
+	if (address == -1) {
+		std::cout << "[SHADER] Fatal Error! Couldn't find the desired variable " << name << "!" << std::endl;
+		exit(0);
+	}
+
+	glUniform3f(address, x, y, z);
 }
 
 void Engine::Shader::setVec3Uniform(const std::string& name, const glm::vec3& vec) const {
-	glUniform3fv(glGetUniformLocation(this->id, name.c_str()), 1, &vec[0]);
+	
+	GLint address = glGetUniformLocation(this->id, name.c_str());
+	
+	if (address == -1) {
+		std::cout << "[SHADER] Fatal Error! Couldn't find the desired variable " << name << "!" << std::endl;
+		exit(0);
+	}
+
+	glUniform3fv(address, 1, &vec[0]);
 }
 
 void Engine::Shader::setVec4Uniform(const std::string& name, const glm::vec4& vec) const {
-	glUniform4fv(glGetUniformLocation(this->id, name.c_str()), 1, &vec[0]);
+	
+	GLint address = glGetUniformLocation(this->id, name.c_str());
+
+	if (address == -1) {
+		std::cout << "[SHADER] Fatal Error! Couldn't find the desired variable " << name << "!" << std::endl;
+		exit(0);
+	}
+	
+	glUniform4fv(address, 1, &vec[0]);
 }

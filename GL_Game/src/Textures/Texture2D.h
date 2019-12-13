@@ -5,7 +5,6 @@
 #include <glad/glad.h>
 #include <STB/stb_image.h>
 #include <iostream>
-#include "../GL/Render/Shader.h"
 
 namespace Engine {
 
@@ -18,12 +17,6 @@ namespace Engine {
         
 	public:
 
-		Shader* shader;
-
-		// TODO: Tirar esse construtor depois, pois não faz sentido ter apenas o Shader na Textura em si
-		Texture2D(Shader* shader);
-
-
 		/// <summary>
 		/// Basic constructor.
 		/// This constructor returns into {data} the image buffer supporting channels of type RGB and without Alpha.
@@ -33,7 +26,7 @@ namespace Engine {
 		///			The file must be of type JPG, PNG, TGA, BMP, PSD, GIF, HDR, PIC.
 		///
 		/// </summary>
-		Texture2D(const char* path, Shader* shader);
+		Texture2D(const char* path);
 
 
 		/// <summary>
@@ -47,7 +40,7 @@ namespace Engine {
 		/// - type: The type of the channels supported by OpenGL 3.3 version.
 		///
 		/// </summary>
-		Texture2D(const char* path, unsigned int type, Shader* shader);
+		Texture2D(const char* path, unsigned int type);
 
 		/// <summary>
 		/// Default constructor.

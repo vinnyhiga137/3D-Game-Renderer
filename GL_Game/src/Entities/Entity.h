@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 
 #include "../GL/MemoryManagement.h"
-#include "../Textures/Texture2D.h"
+#include "../Materials/Material.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -17,7 +17,7 @@ namespace Engine {
         
         // Attributes
 		unsigned int VAO;
-		Texture2D* texture;
+		Material* material;
 		glm::vec3 position;
         
 	public:
@@ -30,7 +30,7 @@ namespace Engine {
         /// - texture: 2D texture object
         ///
         /// </summary>
-		Entity(glm::vec3 position, Texture2D* texture);
+		Entity(glm::vec3 position, Material* material);
 
         glm::vec3 getPosition();
 

@@ -28,6 +28,7 @@
     <ClCompile Include="src\GL\MemoryManagement.cpp" />
     <ClCompile Include="src\GL\Render\Shader.cpp" />
     <ClCompile Include="src\GL\Window\Window.cpp" />
+    <ClCompile Include="src\Materials\Material.cpp" />
     <ClCompile Include="src\Textures\stb_image.cpp" />
     <ClCompile Include="src\Textures\Texture2D.cpp" />
   </ItemGroup>
@@ -40,6 +41,7 @@
     <ClInclude Include="src\GL\Render\Shader.h" />
     <ClInclude Include="src\GL\Window\Window.h" />
     <ClInclude Include="src\GL\Window.h" />
+    <ClInclude Include="src\Materials\Material.h" />
     <ClInclude Include="src\Math\Vector2D.h" />
     <ClInclude Include="src\Textures\Texture2D.h" />
     <ClInclude Include="src\Tools\StringExtension.h" />
