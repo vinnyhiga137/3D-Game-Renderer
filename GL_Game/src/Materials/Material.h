@@ -3,6 +3,7 @@
 #include "../Textures/Texture2D.h"
 #include "../GL/Render/Shader.h"
 #include <glm/vec3.hpp>
+#include <string>
 
 namespace Engine {
 
@@ -29,18 +30,24 @@ namespace Engine {
 
 	public:
 		
+        static Material* materialList[10];
+        
+        std::string name;
 		Shader* shaderProgram;
 
-		Material(Color colorParameters, Light lightParameters,
-			Shader* shaderProgram);
+		Material(std::string name, Color colorParameters, Light lightParameters,
+			std::string shaderName);
 
-		Material(Color colorParameters, Light lightParameters,
-			Shader* shaderProgram, Texture2D* texture);
+		Material(std::string name, Color colorParameters, Light lightParameters,
+			std::string shaderName, Texture2D* texture);
 
 		Color getColorParams() const;
 		Light getLightParams() const;
 		unsigned int getTextureData() const;
+        Shader* getShaderProgram() const;
 		void updateLightData(glm::vec3 lightPosition);
+        
+        static Material* getMaterial(std::string name);
 
 		
 	};

@@ -30,9 +30,9 @@ namespace Engine {
         /// - texture: 2D texture object
         ///
         /// </summary>
-		Entity(glm::vec3 position, Material* material);
+		Entity(glm::vec3 position);
 
-        glm::vec3 getPosition();
+        glm::vec3 getPosition() const;
 
         /// <summary>
         /// This methods draws the object into the screen.
@@ -42,6 +42,11 @@ namespace Engine {
         /// allow the entity be rotated or moved.
         /// </summary>
 		void draw();
+        
+        // TODO: Deprecate this function...
+        // DEBUG: In the future this function will be deprecated... Because the Material will handle this...
+        Engine::Material* getMaterial() const;
+        
 	};
 
 }

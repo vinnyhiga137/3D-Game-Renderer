@@ -1,11 +1,17 @@
 #include "Material.h"
 
-Engine::Material::Material(Color colorParameters, Light lightParameters,
-	Shader* shaderProgram) {
+Engine::Material* Engine::Material::materialList[10];
 
+Engine::Material::Material(std::string name, Color colorParameters,
+                           Light lightParameters, std::string shaderName) {
+
+    this->name = name;
+    
 	this->colorParams = colorParameters;
 	this->lightParams = lightParameters;
-	this->shaderProgram = shaderProgram;
+    
+    this->shaderProgram = Engine::Shader::getProgram(shaderName);
+    
 
 	this->shaderProgram->enable();
 
@@ -40,12 +46,14 @@ Engine::Material::Material(Color colorParameters, Light lightParameters,
 
 
 
-Engine::Material::Material(Color colorParameters, Light lightParameters, 
-	Shader* shaderProgram, Texture2D* texture) {
+Engine::Material::Material(std::string name, Color colorParameters,
+                           Light lightParameters, std::string shaderName, Texture2D* texture) {
 
+    this->name = name;
+    
 	this->colorParams = colorParameters;
 	this->lightParams = lightParameters;
-	this->shaderProgram = shaderProgram;
+	this->shaderProgram = Engine::Shader::getProgram(shaderName);
 	this->texture = texture;
 
 }
@@ -77,4 +85,26 @@ unsigned int Engine::Material::getTextureData() const {
 void Engine::Material::updateLightData(glm::vec3 lightPosition) {
 	this->lightParams.lightPosition = lightPosition;
 	this->shaderProgram->setVec3Uniform("light.position", lightPosition);
+}
+
+
+
+
+
+Engine::Shader* Engine::Material::getShaderProgram() const {
+    return this->shaderProgram;
+}
+
+
+
+
+
+Engine::Material* Engine::Material::getMaterial(std::string name) {
+    for (int i = 0; i < 10; i++) {
+        if (name.compare(Engine::Material::materialList[i]->name) == 0) {
+            return Engine::Material::materialList[i];
+        }
+    }
+    
+    return nullptr;
 }

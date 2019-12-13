@@ -1,4 +1,4 @@
-﻿#include "Lamp.h"
+#include "Lamp.h"
 
 // Warning! Workaround here! DO NOT USE IN PRODUCTION ENV!
 Engine::Debug::Lamp::Lamp(glm::vec3 position, Shader* shaderProgram) {
@@ -97,4 +97,11 @@ void Engine::Debug::Lamp::setPosition(glm::vec3 position) {
 
 glm::vec3 Engine::Debug::Lamp::getPosition() {
     return this->position;
+}
+
+
+
+
+Engine::Shader* Engine::Debug::Lamp::getShaderProgram() {
+    return this->shaderProgram;
 }

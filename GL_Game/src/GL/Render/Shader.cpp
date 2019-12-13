@@ -1,7 +1,11 @@
 #include "Shader.h"
 
-Engine::Shader::Shader(const char* vertexSourcePath, const char* fragmentSourcePath) {
+Engine::Shader* Engine::Shader::shaderList[10];
 
+Engine::Shader::Shader(std::string name, const char* vertexSourcePath, const char* fragmentSourcePath) {
+
+    this->name = name;
+    
 	std::string vertexCode;
 	std::string fragmentCode;
 
@@ -94,6 +98,10 @@ Engine::Shader::Shader(const char* vertexSourcePath, const char* fragmentSourceP
 		glGetProgramInfoLog(this->id, 512, NULL, log);
 		std::cout << "Error! Could not LINK the Shader Program!\n" << log << std::endl;
 	}
+    
+    
+    // 4TH STEP - Inserting into the Global Vector (List) of Shaders to be shared between the entities!
+
 
 }
 
@@ -102,6 +110,60 @@ Engine::Shader::Shader(const char* vertexSourcePath, const char* fragmentSourceP
 void Engine::Shader::enable() {
 	glUseProgram(this->id);
 }
+
+
+
+
+
+void Engine::Shader::updateDynamicData() {
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f),
+        (float)Engine::Window::getWidth() / (float)Engine::Window::getHeight(),
+        0.1f, 100.0f);
+
+    Engine::Camera* mainCamera = Engine::Camera::getInstance();
+    
+    glm::vec3 position = mainCamera->getPosition();
+
+    this->enable();
+    this->setMat4Uniform("projection", projection);
+
+    glm::mat4 view = glm::lookAt(
+        position,
+        position + mainCamera->getFrontVector(),
+        mainCamera->getUpVector());
+
+    this->setMat4Uniform("view", view);
+    this->setVec3Uniform("viewPos", mainCamera->getPosition());
+}
+
+
+
+
+
+// TODO: Tacar um tratador para verificar o objeto emite luz...
+void Engine::Shader::updateLightEmitterData() {
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f),
+        (float)Engine::Window::getWidth() / (float)Engine::Window::getHeight(),
+        0.1f, 100.0f);
+
+    Engine::Camera* mainCamera = Engine::Camera::getInstance();
+    
+    glm::vec3 position = mainCamera->getPosition();
+
+    this->enable();
+    this->setMat4Uniform("projection", projection);
+
+    glm::mat4 view = glm::lookAt(
+        position,
+        position + mainCamera->getFrontVector(),
+        mainCamera->getUpVector());
+
+    this->setMat4Uniform("view", view);
+}
+
+
+
+
 
 void Engine::Shader::setBoolUniform(const std::string& name, bool value) const {
 
@@ -185,4 +247,22 @@ void Engine::Shader::setVec4Uniform(const std::string& name, const glm::vec4& ve
 	}
 	
 	glUniform4fv(address, 1, &vec[0]);
+}
+
+void Engine::Shader::initialSetup(const char* path) {
+    char* vertexPath = StringExtension::join(path, "/src/GL/Render/Shaders/Debug_Vertex.vert");
+    char* fragPath = StringExtension::join(path, "/src/GL/Render/Shaders/Debug_Fragment.frag");
+
+    Engine::Shader* shader = new Engine::Shader("Debug", vertexPath, fragPath);
+    Engine::Shader::shaderList[0] = shader;
+}
+
+Engine::Shader* Engine::Shader::getProgram(std::string name) {
+    for (int i = 0; i < 10; i++) {
+        if (name.compare(Engine::Shader::shaderList[i]->name) == 0) {
+            return Engine::Shader::shaderList[i];
+        }
+    }
+    
+    return nullptr;
 }

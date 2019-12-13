@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 
 #include "../../GL/MemoryManagement.h"
+#include "../../Materials/Material.h"
 #include "../../GL/Render/Shader.h"
 
 #include <glm/glm.hpp>
@@ -29,6 +30,7 @@ namespace Engine {
         
         void setPosition(glm::vec3 position);
         glm::vec3 getPosition();
+        Engine::Shader* getShaderProgram();
         void draw();
     };
 

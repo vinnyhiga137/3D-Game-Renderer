@@ -1,12 +1,11 @@
 #include "Entity.h"
 #include <GLFW/glfw3.h>
 
-Engine::Entity::Entity(glm::vec3 position, Material* material) {
+Engine::Entity::Entity(glm::vec3 position) {
 
 	this->position = position;
 
-	this->material = material;
-
+	this->material = Engine::Material::getMaterial("Box");
 
 	float verticesData[] = {
 		 // 3D Position		  // 3D Normal Coords
@@ -88,6 +87,15 @@ void Engine::Entity::draw() {
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 
+
+}
+
+
+
+
+
+glm::vec3 Engine::Entity::getPosition() const {
+    return this->position;
 }
 
 
@@ -95,6 +103,6 @@ void Engine::Entity::draw() {
 
 
 
-glm::vec3 Engine::Entity::getPosition() {
-    return this->position;
+Engine::Material* Engine::Entity::getMaterial() const {
+    return this->material;
 }
