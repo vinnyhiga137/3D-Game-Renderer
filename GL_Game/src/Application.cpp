@@ -28,10 +28,8 @@ int main() {
 
 	glfwInit();
 
-	/* ------- PREPARING THE WINDOW (IT CONTEXT) -------- */
-
 	// Instantiating with the Window singleton a new GLFWwindow (regardless the O.S.)
-    Engine::Window::setSize(1920, 1080);
+    Engine::Window::setSize(1366, 768);
     GLFWwindow* window = Engine::Window::getInstance();
 
 	// Signalizing the image loader that we need to flip vertically the image before inserting into the shader program
@@ -44,23 +42,25 @@ int main() {
 
 
 
-	// Creating shader program
+	// Creating the box(es)
 	glEnable(GL_DEPTH_TEST);
     Engine::Shader::initialSetup(PROJECT_PATH);
 
+    // Setting up the material's properties
     Engine::Color colorParams;
-    colorParams.ambientStrength = glm::vec3(85.f / 255.f, 255.f / 255.f, 59.f / 255.f);
-    colorParams.diffuseStrength = glm::vec3(85.f / 255.f, 255.f / 255.f, 59.f / 255.f);
     colorParams.specularStrength = glm::vec3(0.5f, 0.5f, 0.5f);
-    colorParams.shininess = 32;
+    colorParams.shininess = 64;
 
+    // Setting up how to handle the light in the material...
     Engine::Light lightParams;
     lightParams.ambientLightStrength = glm::vec3(0.2f, 0.2f, 0.2f);
     lightParams.diffuseLightStrength = glm::vec3(0.5f, 0.5f, 0.5f);
     lightParams.specularLightStrength = glm::vec3(1.0f, 1.0f, 1.0f);
     lightParams.lightPosition = glm::vec3(0.f, 0.f, 0.f); // The Position is fixed due to the Light Emitter obj isn't instantiated yet!
 
-    Engine::Material* material = new Engine::Material("Box", colorParams, lightParams, "Debug");
+    Engine::Texture2D* texture = new Engine::Texture2D(StringExtension::join(PROJECT_PATH, "/assets/container2.png"));
+
+    Engine::Material* material = new Engine::Material("Box", colorParams, lightParams, "Debug", texture);
     Engine::Material::materialList[0] = material;
     
 
@@ -74,7 +74,7 @@ int main() {
 
 
 
-
+    /* --------------- DEBUG ------------- */
 	char* lampVertexPath = StringExtension::join(PROJECT_PATH, "/src/GL/Render/Shaders/Lamp_Vertex.vert");
 	char* lampFragPath = StringExtension::join(PROJECT_PATH, "/src/GL/Render/Shaders/Lamp_Fragment.frag");
 
@@ -107,10 +107,8 @@ int main() {
 
 
         // Drawing the boxes
-        entity1->getMaterial()->getShaderProgram()->updateDynamicData();
-        entity1->getMaterial()->updateLightData(lamp->getPosition());
-        
-        entity1->draw();
+        entity1->getMaterial()->update(lamp->getPosition());    // Projection & View matrices + ViewPos + Lamp Position...
+        entity1->draw();                                        // Local Matrix + Texture
         entity2->draw();
         entity3->draw();
         entity4->draw();

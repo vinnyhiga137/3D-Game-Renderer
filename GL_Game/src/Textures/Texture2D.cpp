@@ -6,12 +6,12 @@ Engine::Texture2D::Texture2D(const char* path) {
 	glGenTextures(1, &(this->data));
 	glBindTexture(GL_TEXTURE_2D, this->data);
 
+	// Setting the wrap mode
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Setting the S axis to be mirrored
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Setting the R axis to be mirrored
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT); // Setting the S axis to be mirrored
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT); // Setting the R axis to be mirrored
-
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	// Setting the filters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
@@ -19,12 +19,25 @@ Engine::Texture2D::Texture2D(const char* path) {
 
 
 	if (imageData) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->width, this->height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+
+		GLenum format;
+
+		if (this->colorChannels == 1) {
+			format = GL_RED;
+		}
+		else if (this->colorChannels == 3) {
+			format = GL_RGB;
+		}
+		else if (this->colorChannels == 4) {
+			format = GL_RGBA;
+		}
+
+		glTexImage2D(GL_TEXTURE_2D, 0, format, this->width, this->height, 0, format, GL_UNSIGNED_BYTE, imageData);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else {
-		std::cout << "Error! Unable to load image data on array!" << std::endl;
-		this->data = 0;
+		std::cout << "[TEXTURE] Fatal Error! Unable to load image data on array!" << std::endl;
+		exit(0);
 	}
 
 
@@ -42,11 +55,12 @@ Engine::Texture2D::Texture2D(const char* path, unsigned int type) {
 	glBindTexture(GL_TEXTURE_2D, this->data);
 
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT); // Setting the S axis to be mirrored
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT); // Setting the R axis to be mirrored
+	// Setting the wrap mode
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Setting the S axis to be mirrored
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Setting the R axis to be mirrored
 
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	// Setting the filters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
@@ -74,7 +88,8 @@ Engine::Texture2D::Texture2D(const char* path, unsigned int type) {
 
 
 Engine::Texture2D::Texture2D() {
-	throw "Fatal! Constructor not implementd!";
+	std::cout << "[TEXTURE] Fatal Error! Constructor not implementd!" << std::endl;
+	exit(0);
 }
 
 

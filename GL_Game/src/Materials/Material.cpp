@@ -16,11 +16,7 @@ Engine::Material::Material(std::string name, Color colorParameters,
 	this->shaderProgram->enable();
 
 	// Setting the shader parameters related to Colors
-	this->shaderProgram->setVec3Uniform("material.ambient",
-		this->colorParams.ambientStrength);
-
-	this->shaderProgram->setVec3Uniform("material.diffuse",
-		this->colorParams.diffuseStrength);
+	this->shaderProgram->setIntUniform("material.diffuse", 0);
 
 	this->shaderProgram->setVec3Uniform("material.specular",
 		this->colorParams.specularStrength);
@@ -53,8 +49,39 @@ Engine::Material::Material(std::string name, Color colorParameters,
     
 	this->colorParams = colorParameters;
 	this->lightParams = lightParameters;
+
 	this->shaderProgram = Engine::Shader::getProgram(shaderName);
 	this->texture = texture;
+
+
+	this->shaderProgram->enable();
+
+	// Setting the shader parameters related to Colors
+	this->shaderProgram->setIntUniform("material.diffuse", 0);
+
+	this->shaderProgram->setVec3Uniform("material.specular",
+		this->colorParams.specularStrength);
+
+	this->shaderProgram->setFloatUniform("material.shininess",
+		this->colorParams.shininess);
+
+	// Setting the shader parameters related to Light
+	this->shaderProgram->setVec3Uniform("light.position",
+		this->lightParams.lightPosition);
+
+	this->shaderProgram->setVec3Uniform("light.ambient",
+		this->lightParams.ambientLightStrength);
+
+	this->shaderProgram->setVec3Uniform("light.diffuse",
+		this->lightParams.diffuseLightStrength);
+
+	this->shaderProgram->setVec3Uniform("light.specular",
+		this->lightParams.specularLightStrength);
+
+
+	// Binding the texture into the GPU
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, this->texture->getData());
 
 }
 
@@ -82,9 +109,35 @@ unsigned int Engine::Material::getTextureData() const {
 
 
 
-void Engine::Material::updateLightData(glm::vec3 lightPosition) {
-	this->lightParams.lightPosition = lightPosition;
+void Engine::Material::update(glm::vec3 lightPosition) {
+
+	this->shaderProgram->updateDynamicData(); // Project, View, ViewPos matrices and vector...
+
+	// Setting the shader parameters related to Colors
+	this->shaderProgram->setIntUniform("material.diffuse", 0);
+
+	this->shaderProgram->setVec3Uniform("material.specular",
+		this->colorParams.specularStrength);
+
+	this->shaderProgram->setFloatUniform("material.shininess",
+		this->colorParams.shininess);
+
+	// Setting the shader parameters related to Light
+	this->shaderProgram->setVec3Uniform("light.position",
+		this->lightParams.lightPosition);
+
+	this->shaderProgram->setVec3Uniform("light.ambient",
+		this->lightParams.ambientLightStrength);
+
+	this->shaderProgram->setVec3Uniform("light.diffuse",
+		this->lightParams.diffuseLightStrength);
+
+	this->shaderProgram->setVec3Uniform("light.specular",
+		this->lightParams.specularLightStrength);
+
 	this->shaderProgram->setVec3Uniform("light.position", lightPosition);
+
+	this->lightParams.lightPosition = lightPosition; // Just updating the struct for good practice...
 }
 
 

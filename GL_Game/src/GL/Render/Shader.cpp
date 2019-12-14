@@ -116,6 +116,8 @@ void Engine::Shader::enable() {
 
 
 void Engine::Shader::updateDynamicData() {
+
+	// Updating the Projection and View Matrices + View Vector Position
     glm::mat4 projection = glm::perspective(glm::radians(45.0f),
         (float)Engine::Window::getWidth() / (float)Engine::Window::getHeight(),
         0.1f, 100.0f);
@@ -250,6 +252,8 @@ void Engine::Shader::setVec4Uniform(const std::string& name, const glm::vec4& ve
 }
 
 void Engine::Shader::initialSetup(const char* path) {
+
+	// LOADING ALL NECESSARY SHADERS
     char* vertexPath = StringExtension::join(path, "/src/GL/Render/Shaders/Debug_Vertex.vert");
     char* fragPath = StringExtension::join(path, "/src/GL/Render/Shaders/Debug_Fragment.frag");
 

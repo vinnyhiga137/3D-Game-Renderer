@@ -63,9 +63,6 @@ Engine::Debug::Lamp::Lamp(glm::vec3 position, Shader* shaderProgram) {
 
 void Engine::Debug::Lamp::draw() {
 
-	// Updating the VAO (Vertex Array Object) 
-	glBindVertexArray(this->VAO);
-
 	//----------------------------------------------------------------//
 	// The next steps we need to the deal with the following equation //
 	//																  //
@@ -80,6 +77,8 @@ void Engine::Debug::Lamp::draw() {
 	this->shaderProgram->setMat4Uniform("model", model);
 
 
+    // Updating the VAO (Vertex Array Object) 
+    glBindVertexArray(this->VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 
 }

@@ -45,7 +45,7 @@ namespace Engine {
 		Light getLightParams() const;
 		unsigned int getTextureData() const;
         Shader* getShaderProgram() const;
-		void updateLightData(glm::vec3 lightPosition);
+		void update(glm::vec3 lightPosition);
         
         static Material* getMaterial(std::string name);
 

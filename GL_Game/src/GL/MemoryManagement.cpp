@@ -1,7 +1,6 @@
 #include "MemoryManagement.h"
 
-void Engine::MemoryManagement::generateGeometryBuffer(float* verticesData, size_t vDataSize, unsigned int* indexes,
-	size_t indSize, unsigned int* VAO)
+void Engine::MemoryManagement::generateGeometryBuffer(float* verticesData, size_t vDataSize, unsigned int* VAO)
 {
 
 	unsigned int VBO;
@@ -17,11 +16,14 @@ void Engine::MemoryManagement::generateGeometryBuffer(float* verticesData, size_
 
 
 	// TELLING THE GPU HOW TO INTERPRET THE VERTEX SHADER ATTRIBUTES
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0); // Setting the first pointer to read parameters related to POSITION
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0); // Setting the first pointer to read parameters related to POSITION
 	glEnableVertexAttribArray(0);                                                 // Saying which vertex attrib must be handled (which is ZERO)
 
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 
 }
 
