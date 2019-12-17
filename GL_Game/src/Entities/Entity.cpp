@@ -61,12 +61,9 @@ Engine::Entity::Entity(glm::vec3 position) {
 
 
 
-void Engine::Entity::draw() {
+void Engine::Entity::draw(glm::vec3 lightPosition) {
 
-    // Binding the texture into the GPU
-	glActiveTexture(GL_TEXTURE0); // Activate the texture unit first before binding texture
-	glBindTexture(GL_TEXTURE_2D, this->material->getTextureData());
-
+    this->material->update(lightPosition);
 
     //----------------------------------------------------------------//
 	// The next steps we need to the deal with the following equation //

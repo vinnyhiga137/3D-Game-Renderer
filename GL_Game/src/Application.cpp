@@ -48,7 +48,6 @@ int main() {
 
     // Setting up the material's properties
     Engine::Color colorParams;
-    colorParams.specularStrength = glm::vec3(0.5f, 0.5f, 0.5f);
     colorParams.shininess = 64;
 
     // Setting up how to handle the light in the material...
@@ -59,8 +58,9 @@ int main() {
     lightParams.lightPosition = glm::vec3(0.f, 0.f, 0.f); // The Position is fixed due to the Light Emitter obj isn't instantiated yet!
 
     Engine::Texture2D* texture = new Engine::Texture2D(StringExtension::join(PROJECT_PATH, "/assets/container2.png"));
+    Engine::Texture2D* complTexture = new Engine::Texture2D(StringExtension::join(PROJECT_PATH, "/assets/container2_specular.png"));
 
-    Engine::Material* material = new Engine::Material("Box", colorParams, lightParams, "Debug", texture);
+    Engine::Material* material = new Engine::Material("Box", colorParams, lightParams, "Debug", texture, complTexture);
     Engine::Material::materialList[0] = material;
     
 
@@ -106,12 +106,12 @@ int main() {
 
 
 
+        // TODO: Optimize the lamp position call...
         // Drawing the boxes
-        entity1->getMaterial()->update(lamp->getPosition());    // Projection & View matrices + ViewPos + Lamp Position...
-        entity1->draw();                                        // Local Matrix + Texture
-        entity2->draw();
-        entity3->draw();
-        entity4->draw();
+        entity1->draw(lamp->getPosition());    // Updating the Local Matrix + Texture
+        entity2->draw(lamp->getPosition());
+        entity3->draw(lamp->getPosition());
+        entity4->draw(lamp->getPosition());
 
 
 

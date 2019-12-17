@@ -26,7 +26,8 @@ namespace Engine {
 
 		Color colorParams;
 		Light lightParams;
-		Texture2D* texture;
+        Texture2D* texture; // Texture (Diffuse map...)
+        Texture2D* complTexture; // Complementary Texture (Specular map...)
 
 	public:
 		
@@ -40,10 +41,14 @@ namespace Engine {
 
 		Material(std::string name, Color colorParameters, Light lightParameters,
 			std::string shaderName, Texture2D* texture);
+        
+        Material(std::string name, Color colorParameters, Light lightParameters,
+        std::string shaderName, Texture2D* texture, Texture2D* complTexture);
 
 		Color getColorParams() const;
 		Light getLightParams() const;
 		unsigned int getTextureData() const;
+        unsigned int getComplTextureData() const;
         Shader* getShaderProgram() const;
 		void update(glm::vec3 lightPosition);
         

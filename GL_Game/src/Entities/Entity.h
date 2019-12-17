@@ -41,7 +41,7 @@ namespace Engine {
         /// after the "projection" and "view" matrix calculations on somewhere on the main loop, so it will
         /// allow the entity be rotated or moved.
         /// </summary>
-		void draw();
+		void draw(glm::vec3 lightPosition);
         
         // TODO: Deprecate this function...
         // DEBUG: In the future this function will be deprecated... Because the Material will handle this...
