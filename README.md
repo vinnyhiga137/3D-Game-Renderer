@@ -1,3 +1,5 @@
+[DEPRECATED] I'm not working anymore on this 3D Game Renderer, because I'm working with my Open-Source Game Engine Project! But feel free to fork! :D
+
 # 3D Game Renderer
 My simple OpenGL Renderer for games made with OpenGL 3
 
